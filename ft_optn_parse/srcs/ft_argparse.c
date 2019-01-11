@@ -1,15 +1,4 @@
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_argparse.c                                    .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/26 11:25:59 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/26 12:32:49 by simrossi    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
+
 
 #include "libopt.h"
 
@@ -78,7 +67,7 @@ int		sort_optn(t_optn **begin_list, t_optn *optn)
 }
 
 /*
-** optparse: 
+** optparse:
 **
 ** Main function to perform our option parsing from argc & argv.
 ** Arguments :
