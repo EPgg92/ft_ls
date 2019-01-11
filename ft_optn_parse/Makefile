@@ -4,11 +4,12 @@
 NAME := liboptn.a
 
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror -I $(INCLUDES)
+#CFLAGS = -g -Wall -Wextra -Werror -I $(INCLUDES)
+CFLAGS = -g  -I $(INCLUDES)
 
 INCLUDES = includes
 
-LIBS :=  libft.a
+LIBS :=  libftprintf.a
 LIBS := $(addprefix libs/, $(LIBS))
 
 vpath *.c "srcs/t_optn"
@@ -20,7 +21,8 @@ SRCS = argv_check.c \
 	   optn_routine.c\
 	   print_optn.c\
 	   t_args_nodes.c\
-	   t_optn_freeing.c
+	   t_optn_freeing.c\
+	   head_opt.c
 
 OBJS = $(SRCS:.c=.o)
 #Rules definitions

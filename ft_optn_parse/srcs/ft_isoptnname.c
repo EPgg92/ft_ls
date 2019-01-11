@@ -31,8 +31,8 @@ static int		ft_isoptname(const char *string)
 
 int				ft_is_optn(const char *string)
 {
-	if (ft_strnlen(string, 3) == 2 && ft_start_with(string, "-") \
-		&& ft_isalpha(string[1]))
+
+	if (ft_strnlen(string, 2) > 1 && ft_start_with(string, "-"))
 		return (1);
 	if (ft_start_with(string, "--") && ft_isoptname(string + 2))
 		return (1);

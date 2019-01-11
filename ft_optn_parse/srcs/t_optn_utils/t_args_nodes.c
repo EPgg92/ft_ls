@@ -5,7 +5,7 @@ t_optn	*create_optn(const char *name, int expect_arg)
 {
 	t_optn *optn;
 
-	if (!(optn = (t_optn *)malloc(sizeof(*optn))))
+	if (!(optn = (t_optn *)malloc(sizeof(t_optn))))
 		return (NULL);
 	optn->name = name;
 	optn->expect_arg = expect_arg;

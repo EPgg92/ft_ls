@@ -10,8 +10,6 @@
 
 int	ft_optn_in(t_optn *optn_list, char *arg, t_optn **arg_node)
 {
-	if (optn_list == NULL)
-		return (0);
 	while (optn_list)
 	{
 		if (optn_list->active == 1)

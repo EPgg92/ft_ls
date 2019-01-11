@@ -5,6 +5,11 @@
 #include <stdio.h>
 
 
+
+
+
+
+
 /*
 ** Structure to stock option, is a chained list.
 **
@@ -26,6 +31,27 @@ struct s_optn
 	int active;
 	char *arg;
 };
+
+
+typedef struct s_head_optn	t_head_optn;
+
+struct s_head_optn
+{
+	int nb_opt_mult;
+	int nb_opt_sing;
+	int nb_opt_long;
+	char *opt_arg; // set with to_update before argparse
+	char *opt_sing; //set with to_update before argparse
+	char **opt_long; //set with to_update before argparse
+	t_optn *next;
+};
+
+
+int update_head(t_head_optn **head);
+int set_head_optn(t_head_optn **head);
+int clear_head_optn(t_head_optn **head);
+
+
 
 /* Main function for parsing argument */
 
