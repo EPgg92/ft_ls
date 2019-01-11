@@ -22,7 +22,7 @@ Implementation of our own ls command in c.
 - char content_or_file (`-F` /)
 	- d : directory (`-F` /)
 	- l : link (`-F` /)
-	- - : file (`-F` /)
+	- '-' : file (`-F` /)
 	- c : char file (`-F` /)
 	- b : Block file (`-F` /)
 	- p : FIFO (`-F` /)
