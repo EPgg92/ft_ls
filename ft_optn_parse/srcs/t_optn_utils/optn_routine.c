@@ -1,0 +1,32 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   optn_routine.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/10/26 11:36:05 by simrossi     #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/26 11:36:22 by simrossi    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
+#include "libopt.h"
+
+/*
+** get_optn:
+**
+** Acces to a *t_optn element from the option's raw string.
+** Return NULL if reserach failed, a *t_optn element otherwise.
+*/
+
+t_optn	*get_optn(t_optn *optn_list, const char *name)
+{
+	while (optn_list)
+	{
+		if (ft_strncmp(name, optn_list->name, ft_strlen(name) == 0))
+			return (optn_list);
+		optn_list = optn_list->next;
+	}
+	return (NULL);
+}
