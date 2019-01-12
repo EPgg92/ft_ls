@@ -37,7 +37,7 @@ typedef struct s_head_optn	t_head_optn;
 
 struct s_head_optn
 {
-	int nb_opt_mult;
+	int nb_opt_arg;
 	int nb_opt_sing;
 	int nb_opt_long;
 	char *opt_arg; // set with to_update before argparse
@@ -50,6 +50,7 @@ struct s_head_optn
 int update_head(t_head_optn **head);
 int set_head_optn(t_head_optn **head);
 int clear_head_optn(t_head_optn **head);
+int add_opt_head(t_head_optn **head, char *name_opt, unsigned int opt_arr);
 
 
 
