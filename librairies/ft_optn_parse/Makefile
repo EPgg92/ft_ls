@@ -37,7 +37,8 @@ $(NAME): $(OBJS)
 	ar -rc $@ $?
 
 $(HEADER_DEPENDENCY):
-	$(error File $@ is missing in $(INCLUDES). Please add him in the directory.)
+	$(error File $@ is missing in $(INCLUDES) for $(NAME). Please add him in \
+		the directory)
 
 #Cleaning rules
 
@@ -53,12 +54,14 @@ fclean: clean
 re: fclean
 	$(MAKE)
 
-
+#Use $(CC) to generate dependecies + format rule to add have 
+#rules like "%.o %.d: x.c y.h (etc.)"
 %.d:%.c
 	$(CC) -MM -I $(INCLUDES) $(filter %.c, $^) > $@
 	PREREQUISITES=$$(cat $@ | cut -d : -f 2) && \
 				  echo "$(@:%.d=%.o) $@:$$PREREQUISITES" > $@
 
+#Avoid including .d files depending of called rule.
 ifeq ($(filter $(MAKECMDGOALS), re fclean clean proper),)
 include $(DEPENDENCIES)
 endif
