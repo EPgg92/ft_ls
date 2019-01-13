@@ -3,11 +3,19 @@
 NAME := liboptn.a
 
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror -I $(INCLUDES)
+CFLAGS = -g -Wall -Wextra -Werror $(addprefix -I , $(INCLUDES))
 
 INCLUDES = includes
+
 HEADER_DEPENDENCY := libft.h
-HEADER_DEPENDENCY := $(addprefix $(INCLUDES)/, $(HEADER_DEPENDENCY))
+ifdef LIBFT_INCLUDE
+	INCLUDES += $(LIBFT_INCLUDE)
+	HEADER_DEPENDENCY := $(addprefix $(LIBFT_INCLUDE)/, $(HEADER_DEPENDENCY))
+else
+	HEADER_DEPENDENCY := $(addprefix $(INCLUDES)/, $(HEADER_DEPENDENCY))
+endif
+
+$(info $(HEADER_DEPENDENCY))
 
 LIBS :=  libft.a
 LIBS := $(addprefix libs/, $(LIBS))
@@ -37,8 +45,13 @@ $(NAME): $(OBJS)
 	ar -rc $@ $?
 
 $(HEADER_DEPENDENCY):
+ifndef LIBFT_INCLUDE
 	$(error File $@ is missing in $(INCLUDES) for $(NAME). Please add him in \
-		the directory)
+		the directory or to set it through the LIBFT_INCLUDE variable)
+else
+	HEADER_FILE=$(LIBFT_INCLUDE)/$(notdir $@) && \
+			   	cp $$HEADER_FILE $(firstword $(INCLUDES))
+endif 
 
 #Cleaning rules
 
@@ -54,13 +67,14 @@ fclean: clean
 re: fclean
 	$(MAKE)
 
+ifeq (1, $(words $(MAKEFILE_LIST)))
 #Use $(CC) to generate dependecies + format rule to add have 
 #rules like "%.o %.d: x.c y.h (etc.)"
 %.d:%.c
-	$(CC) -MM -I $(INCLUDES) $(filter %.c, $^) > $@
+	$(CC) -MM $(addprefix -I, $(INCLUDES)) $(filter %.c, $^) > $@
 	PREREQUISITES=$$(cat $@ | cut -d : -f 2) && \
 				  echo "$(@:%.d=%.o) $@:$$PREREQUISITES" > $@
-
+endif
 #Avoid including .d files depending of called rule.
 ifeq ($(filter $(MAKECMDGOALS), re fclean clean proper),)
 include $(DEPENDENCIES)

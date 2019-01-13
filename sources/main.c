@@ -1,8 +1,8 @@
-#include "../includes/ft_ls.h"
+#include "ft_ls.h"
 
 int main(int argc, char **argv)
 {
-	if (argc > 1 )
+	if (argc > 1  || argv)
 		
 	return (argc);
 }
