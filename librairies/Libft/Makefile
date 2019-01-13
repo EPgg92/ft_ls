@@ -6,7 +6,7 @@
 #    By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/13 14:47:27 by simrossi    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/13 15:26:56 by simrossi    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -22,10 +22,11 @@ INCLUDES = .
 %.d:%.c
 	gcc -MM -I $(INCLUDES) $(filter %.c, $^) > $@
 	PREREQUISITES=$$(cat $@ | cut -d : -f 2) && \
-				  echo "$(@:.d=.o) $@:$$PREREQUISITES" > $@
+				  echo "$(@:%.d=%.o) $@:$$PREREQUISITES" > $@
 endif
 ################################################################################
 
+VPATH = ./:./ft_printf/
 
 SRCS_PRINTF = flags_parse.c \
 			  format_option_parser.c \
@@ -51,7 +52,6 @@ SRCS_PRINTF = flags_parse.c \
 			  ft_printf.c \
 
 SRCS_PRINTF := $(addprefix ft_printf/, $(SRCS_PRINTF))
-
 
 SRCS = ft_atoi.c \
 	   ft_bzero.c \
@@ -151,7 +151,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME) : $(OBJS)
-	ar -rc $@ $^
+	ar -rc $@ $?
 
 clean: 
 	rm -f $(OBJS)
