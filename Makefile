@@ -1,23 +1,21 @@
-
-SHELL = /bin/zsh
-NAME = ft_ls
-CC = gcc
-
-LIBRAIRIES_DIRECTORY = librairies/
-
 ifeq ($(MUTE), yes)
 	SILENT = -s
 endif
 
-OPTION_LIB = ft_optn_parse
-LIBFT_LIB = Libft
-LIBRAIRIES := $(OPTION_LIB) $(LIBFT_LIB)
-LIBRAIRIES := $(addprefix $(LIBRAIRIES_DIRECTORY), $(LIBRAIRIES))
-LIBRAIRIES_INCLUDES = $(OPTION_LIB)/includes $(LIBFT_LIB)/
-vpath
+NAME = ft_ls
+CC = gcc
+
+LIBRAIRIES_DIRECTORY = librairies/
+OPTION_LIB_FOLDER = ft_optn_parse
+ABSOLUT_OPTION_FOLDER = $(addprefix $(LIBRAIRIES_DIRECTORY), $(OPTION_LIB_FOLDER))
+LIBFT_FOLDER = Libft
+ABSOLUT_LIBFT_FOLDER = $(addprefix $(LIBRAIRIES_DIRECTORY), $(LIBFT_FOLDER))
+LIBRAIRIES := $(ABSOLUT_OPTION_FOLDER) $(ABSOLUT_LIBFT_FOLDER)
+LIBRAIRIES_INCLUDES = $(join $(call libdir, $(OPTION_LIB_FOLDER))/, includes) \
+					  $(ABSOLUT_LIBFT_FOLDER)
 libdir = $(filter $(join $(LIBRAIRIES_DIRECTORY), $(1)), $(LIBRAIRIES))
 
-INCLUDES = includes/ $(addprefix librairies/, Libft/ ft_optn_parse)
+INCLUDES = includes/ $(LIBRAIRIES_INCLUDES)
 
 CFLAGS = -g -Wall -Wextra -Werror $(addprefix -I, $(INCLUDES))
 
@@ -39,12 +37,11 @@ $(NAME): $(OBJS) $(LIBS_ARCHIVE_FILES)
 
 get_lib:
 	#Compile libft.a
-	make  $(SILENT) -C $(filter %$(LIBFT_LIB), $(LIBRAIRIES))
+	$(info $(LIBRAIRIES) SEARCH : )
+	make  $(SILENT) -C $(filter %$(LIBFT_FOLDER), $(LIBRAIRIES))
 	#Compile liboptn.a
-	make $(SILENT) -C $(call libdir, $(OPTION_LIB)) \
-		LIBFT_INCLUDE=$(realpath $(call libdir, $(LIBFT_LIB)))
-
-
+	make $(SILENT) -C $(call libdir, $(OPTION_LIB_FOLDER)) \
+		LIBFT_INCLUDE=$(realpath $(call libdir, $(LIBFT_FOLDER)))
 
 clean:
 	$(foreach Lib, $(LIBRAIRIES), make -C $(Lib) $@ &&) true
