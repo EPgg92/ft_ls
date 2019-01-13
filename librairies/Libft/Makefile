@@ -6,7 +6,7 @@
 #    By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/13 15:26:56 by simrossi    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/13 16:49:38 by simrossi    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,7 +20,7 @@ CFLAGS = -g -Wall -Wextra -Werror -I $(INCLUDES)
 INCLUDES = .
 
 %.d:%.c
-	gcc -MM -I $(INCLUDES) $(filter %.c, $^) > $@
+	$(CC) -MM -I $(INCLUDES) $(filter %.c, $^) > $@
 	PREREQUISITES=$$(cat $@ | cut -d : -f 2) && \
 				  echo "$(@:%.d=%.o) $@:$$PREREQUISITES" > $@
 endif
@@ -115,6 +115,7 @@ SRCS = ft_atoi.c \
 	   ft_strnstr.c \
 	   ft_strrchr.c \
 	   ft_strsplit.c \
+	   ft_move_strtab.c \
 	   ft_strstr.c \
 	   ft_strsub.c \
 	   ft_strtrim.c \
