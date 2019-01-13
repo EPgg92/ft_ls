@@ -6,16 +6,52 @@
 #    By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2018/10/30 13:33:34 by simrossi    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/13 14:47:27 by simrossi    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = libft.a
+
+#################### RULES IF MAKEFILE IS RUNNING ALONE ########################
+ifeq (1, $(words MAKEFILE_LIST))
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror -I $(INCLUDES)
-
 INCLUDES = .
+
+%.d:%.c
+	gcc -MM -I $(INCLUDES) $(filter %.c, $^) > $@
+	PREREQUISITES=$$(cat $@ | cut -d : -f 2) && \
+				  echo "$(@:.d=.o) $@:$$PREREQUISITES" > $@
+endif
+################################################################################
+
+
+SRCS_PRINTF = flags_parse.c \
+			  format_option_parser.c \
+			  format_option_parser_utils.c \
+			  is_verif.c \
+			  option_category_setter.c \
+			  t_prt_optn_utils.c \
+			  number_field.c \
+			  unicode_field.c \
+			  string_field.c \
+			  number_precision.c \
+			  t_fcts_utils.c \
+			  t_wfcts_utils.c \
+			  function_builder.c \
+			  std_integer_functions.c \
+			  std_unsigned_functions.c \
+			  std_base_functions.c \
+			  std_base_utils.c \
+			  std_string_functions.c \
+			  std_unicode_functions.c \
+			  std_other_functions.c \
+			  string_displayers.c \
+			  ft_printf.c \
+
+SRCS_PRINTF := $(addprefix ft_printf/, $(SRCS_PRINTF))
+
 
 SRCS = ft_atoi.c \
 	   ft_bzero.c \
@@ -104,8 +140,10 @@ SRCS = ft_atoi.c \
 	   ft_wstrdup.c \
 	   ft_readfile.c \
 	   ft_rmdir.c \
-	   get_next_line.c
+	   get_next_line.c \
+	   $(SRCS_PRINTF)
 
+DEPS_MAKEFILE = $(SRCS:%.c=%.d)
 
 
 OBJS = $(SRCS:.c=.o)
@@ -115,16 +153,18 @@ all: $(NAME)
 $(NAME) : $(OBJS)
 	ar -rc $@ $^
 
-lib:
-	make -C libft
-
 clean: 
 	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all
+re:fclean
+	$(MAKE)
 
-.PHONY: all clean fclean re
-#.SILENT: $(OBJS)
+proper:fclean
+	rm -rf $(DEPS_MAKEFILE)
+
+ifeq ($(filter $(MAKECMDGOALS), clean fclean re proper),)
+include $(DEPS_MAKEFILE)
+endif

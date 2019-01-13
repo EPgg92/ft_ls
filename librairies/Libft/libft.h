@@ -6,7 +6,7 @@
 /*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 08:38:27 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/27 15:46:37 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/13 14:02:21 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# define PERSONNAL
+int				ft_printf(char *format, ...);
 
 # include <unistd.h>
 # include <stdlib.h>
