@@ -6,7 +6,7 @@
 #    By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/13 16:49:38 by simrossi    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/14 17:42:57 by simrossi    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -25,8 +25,6 @@ INCLUDES = .
 				  echo "$(@:%.d=%.o) $@:$$PREREQUISITES" > $@
 endif
 ################################################################################
-
-VPATH = ./:./ft_printf/
 
 SRCS_PRINTF = flags_parse.c \
 			  format_option_parser.c \
