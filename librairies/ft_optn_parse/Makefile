@@ -23,7 +23,8 @@ LIBS := $(addprefix libs/, $(LIBS))
 OPTN_UTILS = $(addprefix t_optn_utils/, optn_routine.c \
 			 print_optn.c \
 			 t_args_nodes.c \
-			 t_optn_freeing.c )
+			 t_optn_freeing.c \
+			 head_opt.c)
 
 SRCS = argv_check.c \
 	   ft_argparse.c \
@@ -51,7 +52,7 @@ ifndef LIBFT_INCLUDE
 else
 	HEADER_FILE=$(LIBFT_INCLUDE)/$(notdir $@) && \
 			   	cp $$HEADER_FILE $(firstword $(INCLUDES))
-endif 
+endif
 
 #Cleaning rules
 
@@ -67,8 +68,11 @@ fclean: clean
 re: fclean
 	$(MAKE)
 
+test:all
+	gcc main_test.c $(NAME) ../Libft/libft.a -I ../Libft/ -I includes/
+
 ifeq (1, $(words $(MAKEFILE_LIST)))
-#Use $(CC) to generate dependecies + format rule to add have 
+#Use $(CC) to generate dependecies + format rule to add have
 #rules like "%.o %.d: x.c y.h (etc.)"
 %.d:%.c
 	$(CC) -MM $(addprefix -I, $(INCLUDES)) $(filter %.c, $^) > $@

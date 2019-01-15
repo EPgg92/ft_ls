@@ -1,4 +1,4 @@
-#include "../../includes/libopt.h"
+#include "libopt.h"
 
 int clear_head_optn(t_head_optn **head)
 {
@@ -35,9 +35,9 @@ int set_head_optn(t_head_optn **head)
 	this->opt_arg = NULL;
 	this->opt_sing = NULL;
 	this->opt_long = NULL;
-	this->nb_opt_arg = 2;
-	this->nb_opt_sing = 13;
-	this->nb_opt_long = 3;
+	this->nb_opt_arg = 0;
+	this->nb_opt_sing = 0;
+	this->nb_opt_long = 0;
 	return (0);
 }
 
@@ -68,7 +68,7 @@ int update_head(t_head_optn **head)
 			l->expect_arg ? add_char(h->opt_arg, l->name[1]) : \
 				add_char(h->opt_sing, l->name[1]);
 		else
-			*tab++ = ft_strdup(l->name + 2);
+			*tab++ = ft_strdup(l->name);
 		l = l->next;
 	}
 	*tab = NULL;
@@ -85,6 +85,5 @@ int add_opt_head(t_head_optn **head, char *name_opt, unsigned int opt_arr)
 		opt_arr ? h->nb_opt_arg++ : h->nb_opt_sing++;
 	else
 		h->nb_opt_long++;
-	push_back_optn(&h->next, name_opt, opt_arr);
-	return (0); // TODO retombé d'erreurs dans push_back_optn & create_node
+	return (push_back_optn(&h->next, name_opt, opt_arr));
 }

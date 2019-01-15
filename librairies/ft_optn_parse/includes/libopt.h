@@ -34,9 +34,9 @@ struct s_head_optn
 	int nb_opt_arg;
 	int nb_opt_sing;
 	int nb_opt_long;
-	char *opt_arg; // set with to_update before argparse
-	char *opt_sing; //set with to_update before argparse
-	char **opt_long; //set with to_update before argparse
+	char *opt_arg;
+	char *opt_sing;
+	char **opt_long;
 	t_optn *next;
 };
 
@@ -50,7 +50,7 @@ int add_opt_head(t_head_optn **head, char *name_opt, unsigned int opt_arr);
 
 /* Main function for parsing argument */
 
-int	optparse(int argc, char **argv, t_optn **optn_required);
+int	optparse(int argc, char **argv, t_head_optn *head);
 
 /*
 **   Functions for lists manipulations
@@ -74,8 +74,8 @@ int	optparse(int argc, char **argv, t_optn **optn_required);
 */
 
 t_optn	*create_optn(const char *name, int expect_arg);
-void	push_front_optn(t_optn **optn_list, const char *name, int expect_arg);
-void	push_back_optn(t_optn **optn_list, const char *name, int expect_arg);
+int		push_front_optn(t_optn **optn_list, const char *name, int expect_arg);
+int		push_back_optn(t_optn **optn_list, const char *name, int expect_arg);
 
 /* II) Printing functions
 **
@@ -110,11 +110,11 @@ t_optn	*get_optn(t_optn *optn_list, const char *name);
 
 /* Check option availability */
 
-int	ft_is_optn(const char *string);
+int				ft_is_optn(const char *string, t_head_optn *head);
 
 
 /* Verification fonctions */
 int	ft_optn_in(t_optn *optn_list, char *arg, t_optn **arg_node);
-int	check_optn_arg(t_optn *node, int argc, char **argv, int *index);
+int	check_optn_arg(t_optn *node, int argc, char **argv, int *index, t_head_optn *head);
 
 #endif
