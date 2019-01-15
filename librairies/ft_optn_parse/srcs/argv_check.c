@@ -40,13 +40,13 @@ int	ft_optn_in(t_optn *optn_list, char *arg, t_optn **arg_node)
 ** - 1 if success, if no argument is need or the argument have been caught
 */
 
-int	check_optn_arg(t_optn *node, int argc, char **argv, int *index)
+int	check_optn_arg(t_optn *node, int argc, char **argv, int *index, t_head_optn *head)
 {
 	if (node->expect_arg == 0)
 		return (1);
 	if (*index + 1 >= argc)
 		return (0);
-	if (ft_is_optn(argv[*index + 1]) == 0 &&\
+	if (ft_is_optn(argv[*index + 1], head) == 0 &&\
 			ft_strncmp("--", argv[*index + 1], 3) != 0)
 	{
 		node->arg = argv[*index + 1];

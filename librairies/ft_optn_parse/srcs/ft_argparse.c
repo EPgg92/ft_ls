@@ -1,6 +1,6 @@
 
 
-#include "libopt.h"
+#include "../includes/libopt.h"
 
 /*
 ** move_option:
@@ -92,26 +92,28 @@ int		sort_optn(t_optn **begin_list, t_optn *optn)
 ** 	1) All argument who aren't option will be pushed at the end of argv.
 */
 
-int		optparse(int argc, char **argv, t_optn **optn_required)
+int		optparse(int argc, char **argv, t_head_optn *head)
 {
 	int		index;
+	t_optn 	**optn_required;
 	t_optn	*arg_node;
 	int		arg_res;
 	int		first_arg;
 	int		hyphen;
 	int		is_optn_res;
 
+	optn_required = &head->next;
 	if (argc == 1 || *optn_required == NULL)
 		return (-1);
 	index = 1;
 	first_arg = 0;
 	while (index < argc && (hyphen = ft_strncmp("--", argv[index], 3)) != 0)
 	{
-		is_optn_res = ft_is_optn(argv[index]);
+		is_optn_res = ft_is_optn(argv[index], head);
 		if (is_optn_res && ft_optn_in(*optn_required, \
 					argv[index], &arg_node))
 		{
-			arg_res = check_optn_arg(arg_node, argc, argv, &index);
+			arg_res = check_optn_arg(arg_node, argc, argv, &index, head);
 			if (arg_res == 0)
 			{
 				printf("Option error : %s argument is missing\n", \

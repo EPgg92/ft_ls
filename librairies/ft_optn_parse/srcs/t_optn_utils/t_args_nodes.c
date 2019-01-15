@@ -15,7 +15,7 @@ t_optn	*create_optn(const char *name, int expect_arg)
 	return (optn);
 }
 
-void	push_back_optn(t_optn **optn_list, const char *name, int expect_arg)
+int	push_back_optn(t_optn **optn_list, const char *name, int expect_arg)
 {
 	t_optn *optn_tmp;
 
@@ -23,23 +23,26 @@ void	push_back_optn(t_optn **optn_list, const char *name, int expect_arg)
 	if (optn_tmp == NULL)
 	{
 		*optn_list = create_optn(name, expect_arg);
-		return ;
+		return (*optn_list != NULL);
 	}
 	while (optn_tmp->next)
 		optn_tmp = optn_tmp->next;
 	optn_tmp->next = create_optn(name, expect_arg);
+	return (optn_tmp->next != NULL);
+
 }
 
-void	push_front_optn(t_optn **optn_list, const char *name, int expect_arg)
+int	push_front_optn(t_optn **optn_list, const char *name, int expect_arg)
 {
 	t_optn *optn_tmp;
 
 	if (!*optn_list)
 	{
 		*optn_list = create_optn(name, expect_arg);
-		return ;
+		return (*optn_list != NULL);
 	}
 	optn_tmp = create_optn(name, expect_arg);
 	optn_tmp->next = *optn_list;
 	*optn_list = optn_tmp;
+	return (optn_tmp->next != NULL);
 }
