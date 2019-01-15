@@ -4,12 +4,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-
-
-
-
-
-
 /*
 ** Structure to stock option, is a chained list.
 **
