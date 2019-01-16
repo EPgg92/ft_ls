@@ -47,15 +47,28 @@ int	push_front_optn(t_optn **optn_list, const char *name, int expect_arg)
 	return (optn_tmp->next != NULL);
 }
 
-void		deplace_active(t_optn **options_list, t_optn *node)
+void		deplace_active(t_optn **options_list, t_optn *deplaced_node)
 {
 	t_optn *curr;
+	t_optn *prev;
 
 	curr = *options_list;
+	prev = NULL;
 	while (curr && curr->active)
+	{
+		prev = curr;
 		curr = curr->next;
-	node->next = curr->next;
-	curr->next = node;
+	}
+	if (prev)
+	{
+		prev->next = deplaced_node;
+		deplaced_node->next = curr;
+	}
+	else
+	{
+		*options_list = deplaced_node;
+		deplaced_node->next = curr;
+	}
 }
 
 int			deplace_option(t_optn **begin, t_optn *node)
@@ -69,7 +82,6 @@ int			deplace_option(t_optn **begin, t_optn *node)
 	curr = *begin;
 	while (curr)
 	{
-		printf("%s\n",  curr->name);
 		if (curr == node)
 		{
 			tmp = curr;
