@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   libft.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 08:38:27 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/13 16:50:16 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/15 18:35:27 by epoggio     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,7 @@ int				ft_putnbr_fd(int nb, int fd);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strncpy(char *dest, const char *src, size_t n);
 char			*ft_strdup(const char *src);
+char			**ft_duparray(char **array);
 char			*ft_strcat(char *dest, const char *src);
 char			*ft_strncat(char *s1, const char *s2, size_t n);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
@@ -90,6 +91,7 @@ char			*ft_strmapi(const char *str, char (*fct)(unsigned int, char));
 char			**ft_strsplit(const char *str, const char *charset);
 char			*ft_strnew(size_t size);
 int				ft_strdel(char **str);
+void			free_str_array(char ***array);
 void			ft_strclear(char *str, int from);
 int				ft_strdel_out(char **str, int status);
 void			ft_strmove(char *begin_str, char *new_begin);

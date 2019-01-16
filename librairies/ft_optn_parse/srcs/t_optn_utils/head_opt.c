@@ -3,13 +3,13 @@
 int clear_head_optn(t_head_optn **head)
 {
 	t_head_optn *this;
+	char **opt_long;
+	int i;
 
-		this = *head;
+
+	this = *head;
 	if (this->next != NULL)
 	{
-		char **opt_long;
-		int i;
-
 		i = -1;
 		opt_long = this->opt_long;
 		clear_optn_list(&(this->next));
@@ -22,6 +22,7 @@ int clear_head_optn(t_head_optn **head)
 			free(opt_long);
 		}
 	}
+	free_str_array(&this->argv);
 	ft_memdel((void **)head);
 	return(0);
 }
@@ -61,7 +62,7 @@ int update_head(t_head_optn **head)
 	h->opt_long = (char **)malloc(sizeof(char *) * (h->nb_opt_long + 1));
 	if (!h->opt_long || !h->opt_sing || !h->opt_arg)
 		return (clear_head_optn(head));
-	tab =  h->opt_long;
+	tab = h->opt_long;
 	while(l != NULL)
 	{
 		if (ft_strnlen(l->name, 3) == 2)

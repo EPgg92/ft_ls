@@ -10,7 +10,7 @@ void	print_optn_list(t_optn *arg_list)
 		printf("option name : %s  | Expect args : %d ", arg_list->name,
 				arg_list->expect_arg);
 		if (arg_list->arg != NULL)
-			printf("  | args : %s", arg_list->arg);
+			printf("  | args : %s ", arg_list->arg);
 		ft_putchar('\n');
 		printf("active : %d\n", arg_list->active);
 		if (arg_list->next)

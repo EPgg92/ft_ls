@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+      #
+#    By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/14 17:42:57 by simrossi    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/15 18:36:08 by epoggio     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -92,9 +92,11 @@ SRCS = ft_atoi.c \
 	   ft_strcmp.c \
 	   ft_strcpy.c \
 	   ft_strdel.c \
+	   free_str_array.c \
 	   ft_strclear.c \
 	   ft_strdel_out.c \
 	   ft_strdup.c \
+	   ft_duparray.c \
 	   ft_strequ.c \
 	   ft_striter.c \
 	   ft_striteri.c \
@@ -152,7 +154,7 @@ all: $(NAME)
 $(NAME) : $(OBJS)
 	ar -rc $@ $?
 
-clean: 
+clean:
 	rm -f $(OBJS)
 
 fclean: clean

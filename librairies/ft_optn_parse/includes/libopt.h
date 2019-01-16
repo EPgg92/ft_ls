@@ -1,7 +1,7 @@
 #ifndef LIBOPT_H
 #define LIBOPT_H
 
-#include "libft.h"
+#include "../../Libft/libft.h"
 #include <stdio.h>
 
 /*
@@ -38,6 +38,10 @@ struct s_head_optn
 	char *opt_sing;
 	char **opt_long;
 	t_optn *next;
+	char *illegal_opt;
+	char **argv;
+	int		argc;
+	int		first_arg;
 };
 
 
@@ -110,11 +114,18 @@ t_optn	*get_optn(t_optn *optn_list, const char *name);
 
 /* Check option availability */
 
-int				ft_is_optn(const char *string, t_head_optn *head);
+int				analyse_optn(const char *string, t_head_optn *head);
 
 
 /* Verification fonctions */
-int	ft_optn_in(t_optn *optn_list, char *arg, t_optn **arg_node);
-int	check_optn_arg(t_optn *node, int argc, char **argv, int *index, t_head_optn *head);
+int		activate_optn(char *arg, t_optn **options, t_optn **arg_node);
+int		check_optn_arg(t_head_optn *head, t_optn *node, int *index);
+
+
+int			deplace_option(t_optn **begin, t_optn *node);
+int			sort_optn(t_optn **begin_list, t_optn *optn);
+void	move_option(t_optn *optn_node, char **argv, int index, int *first_arg);
+
+void		multiple_activation(t_head_optn *head, char *option_list, t_optn **option, int index);
 
 #endif

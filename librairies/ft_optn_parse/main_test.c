@@ -19,8 +19,9 @@ int	main(int argc, char **argv)
 	set_head_optn(&head);
 	if (argc >= 2)
 	{
-		add_opt_head(&head, "-l", 0);
+
 		add_opt_head(&head, "-r", 0);
+		add_opt_head(&head, "-l", 0);
 		add_opt_head(&head, "-R", 0);
 		add_opt_head(&head, "-1", 0);
 		add_opt_head(&head, "-a", 0);
@@ -32,9 +33,11 @@ int	main(int argc, char **argv)
 		add_opt_head(&head, "-U", 0);
 		add_opt_head(&head, "-o", 0);
 		add_opt_head(&head, "-r", 0);
+		add_opt_head(&head, "-A", 1);
+		add_opt_head(&head, "--right", 1);
 		update_head(&head);
 		pos_arg = optparse(argc, argv, head);
-		print_argv(argc, argv);
+		print_argv(head->argc, head->argv);
 		printf("\n\nFinal list : \nFirst arg : %d\n", pos_arg);
 		if (pos_arg != -1)
 		{
