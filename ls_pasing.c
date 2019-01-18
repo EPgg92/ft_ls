@@ -13,11 +13,11 @@ int is_valid_opt(char *str)
 	int i;
 
 	i = 0;
-	if (str[i++] == '-' && strlen(str) > 1)
+	if (str[i++] == '-' && ft_strnlen(str, 2) > 1)
 	{
 		while (str[i])
-			if (!strchr(ALL_OPT, str[i++]))
-				return(i); // str[i] is not a valid option
+			if (!ft_strchr(ALL_OPT, str[i++]))
+				return(i - 1); // str[i] is not a valid option
 		return (0); // all valid option
 	}
 	return (-1); // not an option
@@ -55,7 +55,7 @@ short set_active_opt(short opt, char first)
 	if (first != 'o')
 	{
 		tmp = 1;
-		span = find_ind(ALL_OPT, first);
+		span = find_ind(ALL_OPT, first); // je crois que l'on peu utiliser strspn ...
 		tmp <<= span;
 	}
 	else
@@ -66,7 +66,6 @@ short set_active_opt(short opt, char first)
 		opt = opt & ~RESET_SORT;
 	return (tmp | opt);
 }
-
 
 short set_active_multi_opt(short opt, char *opt_name)
 {
@@ -94,27 +93,40 @@ char **create_tab(int size)
 
 int main(int argc, char **argv)
 {
-	int		no_hyphen;
 	short	active_opt;
 	int		invalid_opt;
 	char	**files_names;
 	int		i;
 
-	no_hyphen = 1;
 	active_opt = 0;
 	i = 0;
 	if (!(files_names = create_tab(argc)))
 		return (-1);
-	while (*++argv && active_opt >= 0)
+	while (*++argv)
 	{
-		if ((no_hyphen = strncmp(*argv, "--", 3)) && !(invalid_opt = is_valid_opt(*argv)))
+		if (!ft_strncmp(*argv, "--", 3))
+		{
+			argv++;
+			break ;
+		}
+		else if((invalid_opt = is_valid_opt(*argv)) >= 0)
+		{
+			if (invalid_opt != 0)
+				break ;
 			active_opt = set_active_multi_opt(active_opt, *argv);
+		}
 		else
 			files_names[i++] = ft_strdup(*argv);
+
 	}
+	while (*argv && invalid_opt == 0)
+		files_names[i++] = ft_strdup(*argv++);
 	if (files_names[0] == NULL)
 		files_names[0] = ft_strdup(".");
+
 	// to rm ...
+	if (invalid_opt > 0)
+		printf("Invalid option %s %d\n", *argv , invalid_opt);
 	printf("Les options actives:\n");
 	printf("%s\n", "1FRSUalmortu");
 	print_short(active_opt);
@@ -123,5 +135,5 @@ int main(int argc, char **argv)
 	while (files_names[i])
 		printf("%s\n", files_names[i++]);
 	// stop
-	return (0);
+	return (invalid_opt);
 }
