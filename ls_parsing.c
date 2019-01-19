@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include "libft.h"
+#include "include/ft_ls.h"
 
 #define ALL_OPT "utromlaUSRF1"
 				//1FRSUalmortu
@@ -109,6 +110,31 @@ char **create_tab(int size)
 		tab[i++] = NULL;
 	return (tab);
 }
+
+
+
+
+
+
+t_file *create_tfile(char *path)
+{
+	t_file *node
+
+	if (!(node = (t_file *)malloc(sizeof(t_file))))
+		return (NULL);
+	node->path = NULL;
+	node->pw_name = NULL;
+	node->gr_name = NULL;
+	node->modification_time = NULL;
+	node->symbolic_link = NULL;
+	node->next = NULL;
+	if (!(node->info = (struct stat*)malloc(sizeof(struct stat))))
+		return (freeaNULL);
+	if (!(node->path = ft_strdup(path)))
+		return (freeaNULL);
+	return (node);
+}
+
 
 int test_readdir(char *name_dir)
 {
