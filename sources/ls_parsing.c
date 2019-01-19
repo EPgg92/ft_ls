@@ -5,6 +5,53 @@
 #include "libft.h"
 #include "ft_ls.h"
 
+
+t_file *create_tfile(char *path)
+{
+	t_file *node;
+
+	if (!(node = (t_file *)malloc(sizeof(t_file))))
+		return (NULL);
+	node->path = NULL;
+	node->pw_name = NULL;
+	node->gr_name = NULL;
+	node->modification_time = NULL;
+	node->symbolic_link = NULL;
+	node->next = NULL;
+	if (!(node->info = (struct stat*)malloc(sizeof(struct stat))))
+		return (/*freeaNULL*/NULL);
+	if (!(node->path = ft_strdup(path)))
+		return (/*freeaNULL*/NULL);
+	return (node);
+}
+
+/*
+static int test_readdir(char *name_dir)
+{
+    DIR *d;
+    struct dirent *dir;
+    d = opendir(name_dir);
+    if (d)
+    {
+        while ((dir = readdir(d)) != NULL)
+            printf("%s\n", dir->d_name);
+        closedir(d);
+    }
+    return(0);
+}*/
+void print_binary(long nb , int iter)
+{
+	if (iter)
+		print_binary(nb>>1 ,--iter);
+	printf("%d", nb % 2 != 0);
+}
+
+void print_short(short to_print)
+{
+	print_binary((long)to_print, 11);
+	printf("\n");
+}
+
 /*
 ** is_valid_opt:
 **
@@ -30,19 +77,6 @@ static int is_valid_opt(char *str)
 		return (0); // all valid option
 	}
 	return (-1); // not an option
-}
-
-void print_binary(long nb , int iter)
-{
-	if (iter)
-		print_binary(nb>>1 ,--iter);
-	printf("%d", nb % 2 != 0);
-}
-
-void print_short(short to_print)
-{
-	print_binary((long)to_print, 11);
-	printf("\n");
 }
 
 /*
@@ -132,45 +166,6 @@ static char **create_tab(int size)
 	return (tab);
 }
 
-
-
-
-
-
-t_file *create_tfile(char *path)
-{
-	t_file *node;
-
-	if (!(node = (t_file *)malloc(sizeof(t_file))))
-		return (NULL);
-	node->path = NULL;
-	node->pw_name = NULL;
-	node->gr_name = NULL;
-	node->modification_time = NULL;
-	node->symbolic_link = NULL;
-	node->next = NULL;
-	if (!(node->info = (struct stat*)malloc(sizeof(struct stat))))
-		return (/*freeaNULL*/NULL);
-	if (!(node->path = ft_strdup(path)))
-		return (/*freeaNULL*/NULL);
-	return (node);
-}
-
-/*
-static int test_readdir(char *name_dir)
-{
-    DIR *d;
-    struct dirent *dir;
-    d = opendir(name_dir);
-    if (d)
-    {
-        while ((dir = readdir(d)) != NULL)
-            printf("%s\n", dir->d_name);
-        closedir(d);
-    }
-    return(0);
-}*/
-
 /*
 ** option_fill:
 **
@@ -195,7 +190,7 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 		{
 			if (invalid_opt != 0)
 			{
-				ft_printf("ls: illegal option -- %c\n", argv[0][0][invalid_opt]);
+				ft_printf("ls: illegal option -- %c\n", **argv[invalid_opt]);
 				return (-1);
 			}
 			active_opt = set_active_multi_opt(active_opt, **argv);
@@ -222,6 +217,7 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 ** - -1 if an error occur, with malloc or an invalid argument.
 ** - a bit from 0 to x which store option. Use mask to analyse them.
 */
+
 int		parse_argv_option(int argc, char **argv, char ***files_names)
 {
 	short	active_opt;
