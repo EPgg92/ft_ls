@@ -28,4 +28,6 @@ int main(int argc, char **argv)
 		ft_printf("S is active\n");
 	if (OPT_1 & activ_opt)
 		ft_printf("1 is active\n");
+	if (A_MIN & activ_opt)
+		ft_printf("a is active\n");
 }
