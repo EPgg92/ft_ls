@@ -23,7 +23,7 @@ char		**ft_duparray(char **array)
 		duplicate[index] = ft_strdup(*array++);
 		if (duplicate[index] == NULL)
 		{
-			free_str_array(&array);
+			free_str_array(&array, 0);
 			return (NULL);
 		}
 		index++;

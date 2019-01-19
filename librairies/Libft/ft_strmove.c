@@ -6,7 +6,7 @@
 /*   By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/19 07:05:54 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 17:19:24 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 17:25:09 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,12 +20,11 @@
 ** Fill the end with '\0'.
 */
 
-void	ft_strmove(char *old_start, char *new_begin)
+void	ft_strmove(char *old_begin, char *new_begin)
 {
-//	size_t	new_len;
-	old_start++; 
-	new_begin++;
+	size_t	new_len;
+
 	new_len = ft_strlen(new_begin);
-	ft_memmove(old_start, new_begin, new_len);
-	ft_bzero(old_start + new_len, new_begin - old_start);
+	ft_memmove(old_begin, new_begin, new_len);
+	ft_bzero(old_begin + new_len, new_begin - old_begin);
 }

@@ -6,7 +6,7 @@
 /*   By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 08:38:27 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 18:35:27 by epoggio     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 18:13:43 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ char			*ft_strmapi(const char *str, char (*fct)(unsigned int, char));
 char			**ft_strsplit(const char *str, const char *charset);
 char			*ft_strnew(size_t size);
 int				ft_strdel(char **str);
-void			free_str_array(char ***array);
+int				free_str_array(char ***array, int status);
 void			ft_strclear(char *str, int from);
 int				ft_strdel_out(char **str, int status);
 void			ft_strmove(char *begin_str, char *new_begin);

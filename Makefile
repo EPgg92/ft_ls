@@ -6,13 +6,11 @@ NAME = ft_ls
 CC = gcc
 
 LIBRAIRIES_DIRECTORY = librairies/
-OPTION_LIB_FOLDER = ft_optn_parse
-ABSOLUT_OPTION_FOLDER = $(addprefix $(LIBRAIRIES_DIRECTORY), $(OPTION_LIB_FOLDER))
 LIBFT_FOLDER = Libft
 ABSOLUT_LIBFT_FOLDER = $(addprefix $(LIBRAIRIES_DIRECTORY), $(LIBFT_FOLDER))
-LIBRAIRIES := $(ABSOLUT_OPTION_FOLDER) $(ABSOLUT_LIBFT_FOLDER)
-LIBRAIRIES_INCLUDES = $(join $(call libdir, $(OPTION_LIB_FOLDER))/, includes) \
-					  $(ABSOLUT_LIBFT_FOLDER)
+LIBRAIRIES := $(ABSOLUT_LIBFT_FOLDER)
+LIBRAIRIES_INCLUDES = $(ABSOLUT_LIBFT_FOLDER)
+
 libdir = $(filter $(join $(LIBRAIRIES_DIRECTORY), $(1)), $(LIBRAIRIES))
 
 INCLUDES = includes/ $(LIBRAIRIES_INCLUDES)
@@ -23,6 +21,7 @@ SRCS_DIR = sources/
 
 SRCS = argparsing.c \
 	   dominantopt.c \
+	   ls_parsing.c \
 	   main.c
 
 OBJS = $(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
@@ -39,9 +38,6 @@ get_lib:
 	#Compile libft.a
 	$(info $(LIBRAIRIES) SEARCH : )
 	make  $(SILENT) -C $(filter %$(LIBFT_FOLDER), $(LIBRAIRIES))
-	#Compile liboptn.a
-	make $(SILENT) -C $(call libdir, $(OPTION_LIB_FOLDER)) \
-		LIBFT_INCLUDE=$(realpath $(call libdir, $(LIBFT_FOLDER)))
 
 clean:
 	$(foreach Lib, $(LIBRAIRIES), make -C $(Lib) $@ &&) true
