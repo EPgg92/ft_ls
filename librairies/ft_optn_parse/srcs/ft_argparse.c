@@ -43,10 +43,10 @@ int		sort_optn(t_optn **begin_list, t_optn *optn)
 	t_optn *tmp_prev;
 	t_optn *tmp_curr;
 
-	if (!ft_strcmp((*begin_list)->name, optn->name))
+	if (*begin_list == optn)
 		return (0);
 	tmp_prev = *begin_list;
-	while (ft_strcmp(optn->name, tmp_prev->next->name) != 0)
+	while (optn !=  tmp_prev->next)
 		tmp_prev = tmp_prev->next;
 	if (tmp_prev->active && optn->next == NULL)
 		return (1);

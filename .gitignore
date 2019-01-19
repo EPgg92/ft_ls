@@ -2,4 +2,6 @@
 *.o
 *.d
 ft_ls
+a.out
 *.a
+

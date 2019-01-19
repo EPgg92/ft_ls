@@ -6,7 +6,7 @@
 /*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/19 07:05:54 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 15:01:12 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 15:22:12 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,5 +26,5 @@ void	ft_strmove(char *old_start, char *new_begin)
 
 	new_len = ft_strlen(new_begin);
 	ft_memmove(old_start, new_begin, new_len);
-	ft_bzero(old_start + new_len, new_begin - begin_str);
+	ft_bzero(old_start + new_len, new_begin - old_start);
 }
