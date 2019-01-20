@@ -6,7 +6,7 @@
 /*   By: epoggio <epoggio@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 17:35:41 by epoggio      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 17:49:07 by epoggio     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 18:50:15 by epoggio     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,7 +108,7 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 		{
 			if (invalid_opt != 0)
 				return (ft_printf("ls: illegal option -- %c\n", \
-				**argv[invalid_opt]) ? -1 : -1);
+				(**argv)[invalid_opt]) ? -1 : -1);
 				active_opt = set_active_multi_opt(active_opt, **argv);
 		}
 		else
@@ -118,6 +118,7 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 		}
 		*argv += 1;
 	}
+	*argv += (**argv != NULL && ft_strequ(**argv, "--")) ? 1 : 0;
 	return (error == 0 ? free_str_array(&files_names, -1) : active_opt);
 }
 
@@ -148,9 +149,9 @@ int				parse_argv_option(int argc, char **argv,
 		return (-1);
 	if ((active_opt = option_fill(&argv, *files_names, &index)) == -1)
 		return (-1);
-	while (*argv)
-		error *= (*files_names[index++] = ft_strdup(*argv++)) == NULL ? 0 : 1;
-	if (*files_names[0] == NULL)
-		error *= (*files_names[0] = ft_strdup(".")) == NULL ? 0 : 1;
+	while (*argv && error)
+		error *= ((*files_names)[index++] = ft_strdup(*argv++)) == NULL ? 0 : 1;
+	if ((*files_names)[0] == NULL && error)
+		error *= ((*files_names)[0] = ft_strdup(".")) == NULL ? 0 : 1;
 	return (error == 0 ? free_str_array(files_names, -1) : active_opt);
 }
