@@ -1,22 +1,5 @@
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include "libft.h"
+# include "../includes/ft_ls.h" // to remove
 #include "ft_ls.h"
-
-void print_binary(long nb , int iter)
-{
-	if (iter)
-		print_binary(nb>>1 ,--iter);
-	printf("%d", nb % 2 != 0);
-}
-
-void print_short(short to_print)
-{
-	print_binary((long)to_print, 11);
-	printf("\n");
-}
 
 /*
 ** is_valid_opt:
@@ -35,14 +18,12 @@ static int is_valid_opt(char *str)
 		while (str[i])
 		{
 			if (!ft_strchr(ALL_OPT, str[i]))
-			{
-				return(i); // str[i] is not a valid option
-			}
+				return(i);
 			i++;
 		}
-		return (0); // all valid option
+		return (0);
 	}
-	return (-1); // not an option
+	return (-1);
 }
 
 /*
@@ -83,14 +64,14 @@ static short set_active_opt(short opt, char first)
 	if (first != 'o')
 	{
 		tmp = 1;
-		span = find_index(ALL_OPT, first); // je crois que l'on peu utiliser strspn ...
+		span = find_index(ALL_OPT, first);
 		tmp <<= span;
 	}
 	else
-		tmp = L_MIN | O_MIN; // speciation of l with o
-	if (first == '1' || first == 'm' || first == 'l' || first == 'o') // reset priority printing
+		tmp = L_MIN | O_MIN;
+	if (first == '1' || first == 'm' || first == 'l' || first == 'o')
 		opt = opt & ~RESET_PRINT;
-	else if (first == 'u' || first == 'U' || first == 'S') // reset priority sort
+	else if (first == 'u' || first == 'U' || first == 'S')
 		opt = opt & ~RESET_SORT;
 	return (tmp | opt);
 }
