@@ -6,7 +6,7 @@
 #    By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/20 17:15:22 by epoggio     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/20 17:20:37 by epoggio     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -142,7 +142,9 @@ SRCS = ft_atoi.c \
 	   ft_readfile.c \
 	   ft_rmdir.c \
 	   get_next_line.c \
+	   # add for ls
 	   create_tab.c \
+	   find_index.c \
 	   $(SRCS_PRINTF)
 
 DEPS_MAKEFILE = $(SRCS:%.c=%.d)
