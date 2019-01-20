@@ -4,10 +4,7 @@
 # include <sys/stat.h>
 # include <sys/xattr.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include <dirent.h>
 # include <limits.h> // PATH_MAX
-# include <stdio.h>
 
 typedef struct s_file t_file;
 typedef int	(*file_cmp)(t_file *, t_file *);
@@ -63,6 +60,19 @@ int			push_file(t_file **folder, char *parent_dir, char *path);
 
 int			parse_folder(char *folder, t_file **folder_list);
 void		print_folder(t_file *folder);
+
+/*
+** Sorting funcitons
+*/
+
 void		insert_sort(t_file **folder, file_cmp cmp_function);
+
+int			modif_compare(t_file *file_1, t_file *file_2);
+int			time_compare(t_file *file_1, t_file *file_2);
+int			access_compare(t_file *file_1, t_file *file_2);
+int			creation_compare(t_file *file_1, t_file *file_2);
+int			ascii_compare(t_file *file_1, t_file *file_2);
+int			size_compare(t_file *file_1, t_file *file_2);
+
 
 #endif

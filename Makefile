@@ -22,7 +22,12 @@ SRCS_DIR = sources/
 SRCS = ls_parsing.c \
 	   tfile_utils.c \
 	   folder_reading.c \
-	   main.c
+	   sort_algorithm.c \
+	   sort_functions.c \
+
+ifeq ($(filter $(MAKECMDGOALS), simon enzo),)
+SRCS += main.c
+endif
 
 OBJS = $(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
 DEPENDENCIES = $(OBJS:.o=.d)
@@ -50,6 +55,12 @@ fclean: clean
 proper:fclean
 	$(foreach Lib, $(LIBRAIRIES), make -C $(Lib) $@ &&) true
 	rm -f $(DEPENDENCIES)
+
+enzo: $(OBJS) sources/enzo_main.o
+	$(CC) $(CFLAGS) $^ $(LIBS_ARCHIVE_FILES) -o $(NAME)
+
+simon: $(OBJS) sources/simon_main.o
+	$(CC) $(CFLAGS) $^ $(LIBS_ARCHIVE_FILES) -o $(NAME)
 
 
 re: fclean all

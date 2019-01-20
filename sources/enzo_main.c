@@ -5,5 +5,5 @@ int main(int argc, char **argv)
 {
 	if (argc && argv)
 		;
-	ft_printf("default\n");
+
 }
