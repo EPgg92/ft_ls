@@ -86,8 +86,7 @@ int		parse_folder(char *folder, t_file **folder_list)
 		return (-1);
 	while ((sub_dir = readdir(dir)))
 	{
-		printf("loop with %s\n", sub_dir->d_name);
-		if (push_file(folder_list, sub_dir->d_name) == -1)
+		if (push_file(folder_list, folder, sub_dir->d_name) == -1)
 			return (free_folder(folder_list, -1));
 	}
 	closedir(dir);
