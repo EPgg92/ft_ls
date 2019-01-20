@@ -1,4 +1,11 @@
 
+
+/*
+** create_tab:
+**
+** Allocate a char ** from a given size. Set all index to NULL.
+*/
+
 #include "libft.h"
 
 char **create_tab(int size)
