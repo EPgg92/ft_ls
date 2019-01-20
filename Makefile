@@ -19,9 +19,7 @@ CFLAGS = -g -Wall -Wextra -Werror $(addprefix -I, $(INCLUDES))
 
 SRCS_DIR = sources/
 
-SRCS = argparsing.c \
-	   dominantopt.c \
-	   ls_parsing.c \
+SRCS = ls_parsing.c \
 	   tfile_utils.c \
 	   folder_reading.c \
 	   main.c
