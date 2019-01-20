@@ -13,6 +13,8 @@ struct		s_file
 {
 	struct stat	*info; // int lstat(const char *restrict path, struct stat *restrict buf);
 	char		*path;
+	char		*filename;
+
 	char		*pw_name;// struct passwd *getpwuid(uid_t uid);
 	char		*gr_name;//	struct group *getgrgid(gid_t gid)
 	char    	*modification_time; //char * ctime(const time_t *clock);
@@ -49,8 +51,8 @@ int			test_readdir(char *name_dir);
 
 int			free_file_node(t_file **folder, int status);
 int			free_folder(t_file **folder, int status);
-int			create_tfile(char *path, t_file **node);
-int			push_file(t_file **folder, char *path);
+int			create_tfile(char *parent, char *path, t_file **node);
+int			push_file(t_file **folder, char *parent_dir, char *path);
 
 /*
 ** Directory parsing
