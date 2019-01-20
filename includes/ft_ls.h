@@ -8,22 +8,30 @@
 # include <dirent.h>
 # include <limits.h> // PATH_MAX
 # include <stdio.h>
+# include <sys/types.h>
+# include <pwd.h>
+# include <uuid/uuid.h>
+# include <grp.h>
+# include <uuid/uuid.h>
+
+# include <sys/types.h>
+# include <sys/acl.h>
 
 typedef struct s_file t_file;
 typedef int	(*file_cmp)(t_file *, t_file *);
 
 struct		s_file
 {
-	struct stat	*info; // int lstat(const char *restrict path, struct stat *restrict buf);
+	struct stat	*info;
 	char		*path;
 	char		*filename;
 
-	char		*pw_name;// struct passwd *getpwuid(uid_t uid);
-	char		*gr_name;//	struct group *getgrgid(gid_t gid)
-	char    	*modification_time; //char * ctime(const time_t *clock);
-	char		*symbolic_link;// ssize_t readlink(const char *restrict path, char *restrict buf, size_t bufsize);
+	char		*pw_name;
+	char		*gr_name;
+	char    	*modification_time;
+	char		symbolic_link[PATH_MAX];// ssize_t readlink(const char *restrict path, char *restrict buf, size_t bufsize);
 	char		ftype;
-	char		xattr; // ssize_t listxattr(const char *path, char *namebuf, size_t size, int options);
+	//char		xattr; // ssize_t listxattr(const char *path, char *namebuf, size_t size, int options);
 	t_file		*next;
 };
 
