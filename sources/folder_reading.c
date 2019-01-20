@@ -2,6 +2,22 @@
 #include <dirent.h>
 #include <time.h>
 
+static void		insert_tfile_node(t_file **sorted_folder, t_file *prev, \
+		t_file *curr_tmp, t_file *new)
+{
+	if (!prev)
+	{
+		new->next = curr_tmp;
+		*sorted_folder = new;
+
+	}
+	else
+	{
+		prev->next = new;
+		new->next = curr_tmp;
+	}
+}
+
 static void		place_tfile(t_file **sorted_folder, t_file *new_file, \
 							file_cmp cmp_fct)
 {
@@ -17,32 +33,11 @@ static void		place_tfile(t_file **sorted_folder, t_file *new_file, \
 		current = *sorted_folder;
 		while (current)
 		{
-			if ((cmp_res = cmp_fct(new_file, current)) < 0)
+			cmp_res = cmp_fct(new_file, current);
+			if (cmp_res < 0 || \
+				(cmp_res == 0 && ft_strcmp(new_file->path, current->path) < 0))
 			{
-				if (!prev)
-				{
-					new_file->next = current;
-					*sorted_folder = new_file;
-				}
-				else
-				{
-					prev->next = new_file;
-					new_file->next = current;
-				}
-				break ;
-			}
-			else if (cmp_res == 0 && ft_strcmp(new_file->path, current->path) < 0)
-			{
-				if (!prev)
-				{
-					new_file->next = current;
-					*sorted_folder = new_file;
-				}
-				else
-				{
-					prev->next = new_file;
-					new_file->next = current;
-				}
+				insert_tfile_node(sorted_folder, prev, current, new_file);
 				break ;
 			}
 			prev = current;
