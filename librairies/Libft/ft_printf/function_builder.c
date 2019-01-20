@@ -6,7 +6,7 @@
 /*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/27 16:18:26 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/07 11:10:41 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 18:16:58 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -116,6 +116,7 @@ static t_fcts	*setup_standard(void)
 	error *= push_element(&list_fct, "c", get_c);
 	error *= push_element(&list_fct, "%", get_percent);
 	error *= push_element(&list_fct, "s", get_s);
+	error *= push_element(&list_fct, "r", get_r);
 	error *= push_element(&list_fct, "F", get_big_f);
 	if (!error)
 		free_fcts_list(&list_fct);

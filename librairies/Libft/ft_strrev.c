@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   is_verif.c                                       .::    .:/ .      .::   */
+/*   ft_strrev.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/27 15:05:07 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 18:19:32 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/20 18:12:51 by simrossi     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/20 18:12:52 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "libft.h"
 
-int		is_specifier(int c)
+char	*ft_strrev(const char *str)
 {
-	return (ft_incharset(c, "sSpdiouxXcCF%r"));
-}
+	int		len;
+	char	*rev;
 
-int		is_flag(int c)
-{
-	return (ft_incharset(c, "0 #-+"));
+	len = ft_strlen(str);
+	rev = ft_strnew(len);
+	while (len)
+		rev[--len] = *str++;
+	return (rev);
 }

@@ -6,7 +6,7 @@
 /*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/27 15:25:24 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/28 13:14:12 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 18:15:49 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,4 +51,21 @@ char	*get_c(va_list args, t_prt_opt *format_options, int *octets)
 	formatted_str[1] = '\0';
 	*octets = 1;
 	return (formatted_str);
+}
+
+char	*get_r(va_list args, t_prt_opt *format_options, int *octets)
+{
+	char	*value;
+
+	value = va_arg(args, char *);
+	value = ft_strrev(value);
+	if (!value)
+		return (NULL);
+	*octets += ft_strlen(value);
+	if (format_options->precision >= 0 && *octets > format_options->precision)
+	{
+		*octets = format_options->precision;
+		ft_strclear(value, format_options->precision);
+	}
+	return (value);
 }

@@ -7,7 +7,7 @@ int		time_compare(t_file *file_1, t_file *file_2)
 
 int		ascii_compare(t_file *file_1, t_file *file_2)
 {
-	return (ft_strcmp(file_1->path, file_2->path));
+	return (ft_strcmp(file_1->filename, file_2->filename));
 }
 
 
@@ -52,4 +52,6 @@ int main(int argc, char **argv)
 	printf("\nascii sort : \n");
 	insert_sort(&file_list, ascii_compare);
 	print_folder(file_list);
+
+	ft_printf("%r\n", "reverse bro");
 }
