@@ -15,7 +15,6 @@ static void		insert_tfile_node(t_file **sorted_folder, t_file *prev, \
 	{
 		new->next = curr_tmp;
 		*sorted_folder = new;
-
 	}
 	else
 	{
@@ -32,6 +31,7 @@ static void		insert_tfile_node(t_file **sorted_folder, t_file *prev, \
 ** If someelement are equal with the comparaison function, finish
 ** the sort by a lexical (ascii) sort.
 */
+
 static void		place_tfile(t_file **sorted_folder, t_file *new_file, \
 							file_cmp cmp_fct)
 {
@@ -69,11 +69,11 @@ static void		place_tfile(t_file **sorted_folder, t_file *new_file, \
 **
 ** Algorithm:
 ** Create a new chained list who will be entirely sorted from the beginning.
-** Parse the old chained list from the first element, and insert each the 
+** Parse the old chained list from the first element, and insert each the
 ** element at the right place according to the funciton result.
 */
 
-void	insert_sort(t_file **folder, file_cmp cmp_function)
+void			insert_sort(t_file **folder, file_cmp cmp_function)
 {
 	t_file	*sorted_folder;
 	t_file	*tmp;
