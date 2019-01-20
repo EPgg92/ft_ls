@@ -5,40 +5,6 @@
 #include "libft.h"
 #include "ft_ls.h"
 
-
-t_file *create_tfile(char *path)
-{
-	t_file *node;
-
-	if (!(node = (t_file *)malloc(sizeof(t_file))))
-		return (NULL);
-	node->path = NULL;
-	node->pw_name = NULL;
-	node->gr_name = NULL;
-	node->modification_time = NULL;
-	node->symbolic_link = NULL;
-	node->next = NULL;
-	if (!(node->info = (struct stat*)malloc(sizeof(struct stat))))
-		return (/*freeaNULL*/NULL);
-	if (!(node->path = ft_strdup(path)))
-		return (/*freeaNULL*/NULL);
-	return (node);
-}
-
-/*
-static int test_readdir(char *name_dir)
-{
-    DIR *d;
-    struct dirent *dir;
-    d = opendir(name_dir);
-    if (d)
-    {
-        while ((dir = readdir(d)) != NULL)
-            printf("%s\n", dir->d_name);
-        closedir(d);
-    }
-    return(0);
-}*/
 void print_binary(long nb , int iter)
 {
 	if (iter)

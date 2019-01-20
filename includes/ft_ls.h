@@ -7,6 +7,7 @@
 # include <limits.h> // PATH_MAX
 
 typedef struct s_file t_file;
+typedef int	(*file_cmp)(t_file *, t_file *);
 
 struct		s_file
 {
@@ -39,4 +40,24 @@ int			parse_argv_option(int argc, char **argv, char ***files_names);
 # define R_MAJ 0b1000000000
 # define F_MAJ 0b10000000000
 # define OPT_1 0b100000000000
+
+int			test_readdir(char *name_dir);
+
+/*
+** Utils for t_file elements.
+*/
+
+int			free_file_node(t_file **folder, int status);
+int			free_folder(t_file **folder, int status);
+int			create_tfile(char *path, t_file **node);
+int			push_file(t_file **folder, char *path);
+
+/*
+** Directory parsing
+*/
+
+int			parse_folder(char *folder, t_file **folder_list);
+void		print_folder(t_file *folder);
+void		insert_sort(t_file **folder, file_cmp cmp_function);
+
 #endif
