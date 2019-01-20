@@ -4,7 +4,10 @@
 # include <sys/stat.h>
 # include <sys/xattr.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <dirent.h>
 # include <limits.h> // PATH_MAX
+# include <stdio.h>
 
 typedef struct s_file t_file;
 typedef int	(*file_cmp)(t_file *, t_file *);
