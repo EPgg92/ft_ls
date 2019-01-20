@@ -136,10 +136,8 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 		if (((invalid_opt = is_valid_opt(**argv)) >= 0))
 		{
 			if (invalid_opt != 0)
-			{
-				ft_printf("ls: illegal option -- %c\n", **argv[invalid_opt]);
-				return (-1);
-			}
+				return (ft_printf("ls: illegal option -- %c\n", \
+				 	**argv[invalid_opt]) ? -1 : -1);
 			active_opt = set_active_multi_opt(active_opt, **argv);
 		}
 		else
@@ -174,7 +172,7 @@ int		parse_argv_option(int argc, char **argv, char ***files_names)
 	active_opt = 0;
 	index = 0;
 	error = 1;
-	
+
 	if (!(*files_names = create_tab(argc)))
 		return (-1);
 	if ((active_opt = option_fill(&argv, *files_names, &index)) == -1)
