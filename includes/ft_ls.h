@@ -4,12 +4,9 @@
 # include <sys/stat.h>
 # include <sys/xattr.h>
 # include <unistd.h>
-<<<<<<< HEAD
 # include <stdlib.h>
 # include <dirent.h>
 # include <time.h>
-=======
->>>>>>> 50f7feb0e67d0122e740427427da555b80ad044a
 # include <limits.h> // PATH_MAX
 # include <stdio.h>
 # include <sys/types.h>
