@@ -6,7 +6,7 @@
 /*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 09:55:42 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/07 11:00:36 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 18:17:09 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -115,6 +115,7 @@ int			display_unicode(va_list args, t_prt_opt *option, \
 */
 
 char		*get_s(va_list args, t_prt_opt *options, int *octets);
+char		*get_r(va_list args, t_prt_opt *options, int *octets);
 char		*get_c(va_list args, t_prt_opt *options, int *octets);
 char		*get_u(va_list args, t_prt_opt *options, int *octets);
 char		*get_lu(va_list args, t_prt_opt *options, int *octets);

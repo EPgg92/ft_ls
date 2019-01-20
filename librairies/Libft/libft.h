@@ -6,7 +6,7 @@
 /*   By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 08:38:27 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 17:19:30 by epoggio     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 18:12:06 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -156,6 +156,7 @@ void			ft_memdel(void **ptr);
 
 void			ft_strswap(char **str_a, char **str_b);
 void			ft_swap(int *a, int *b);
+char			*ft_strrev(const char *str);
 
 /*
 ** Extra functions

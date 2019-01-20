@@ -6,7 +6,7 @@
 #    By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/20 17:55:41 by epoggio     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/20 18:12:46 by simrossi    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -126,6 +126,7 @@ SRCS = ft_atoi.c \
 	   ft_start_with.c \
 	   ft_strnlen.c \
 	   ft_strswap.c \
+	   ft_strrev.c \
 	   ft_swap.c \
 	   ft_strmove.c \
 	   ft_strcspn.c \

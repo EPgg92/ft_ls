@@ -6,7 +6,7 @@
 /*   By: simrossi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/27 15:48:23 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/07 11:00:51 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 18:16:40 by simrossi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,7 @@ void		set_category(t_prt_opt *format_option)
 {
 	if (ft_incharset(format_option->specifier, "pdDioOuUxX"))
 		format_option->category = 1;
-	else if (ft_incharset(format_option->specifier, "scF%"))
+	else if (ft_incharset(format_option->specifier, "scF%r"))
 	{
 		if (ft_strequ(format_option->modifier, "l"))
 			format_option->category = 3;
