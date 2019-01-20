@@ -1,4 +1,16 @@
-# include "../includes/ft_ls.h" // to remove
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ls_parsing.c                                     .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: epoggio <epoggio@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/01/20 17:35:41 by epoggio      #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/20 17:49:07 by epoggio     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 /*
@@ -8,7 +20,7 @@
 ** is a option's charset.
 */
 
-static int is_valid_opt(char *str)
+static int		is_valid_opt(char *str)
 {
 	int i;
 
@@ -18,30 +30,10 @@ static int is_valid_opt(char *str)
 		while (str[i])
 		{
 			if (!ft_strchr(ALL_OPT, str[i]))
-				return(i);
+				return (i);
 			i++;
 		}
 		return (0);
-	}
-	return (-1);
-}
-
-/*
-** find_index:
-**
-** Return index of a given char in a string. Return -1 if the char is not found.
-*/
-
-static int find_index(char* str, char c)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-	 	if (str[i] == c)
-			return (i);
-		i++;
 	}
 	return (-1);
 }
@@ -56,10 +48,10 @@ static int find_index(char* str, char c)
 ** - formated byte containing options.
 */
 
-static short set_active_opt(short opt, char first)
+static short	set_active_opt(short opt, char first)
 {
-	short tmp;
-	int span;
+	short	tmp;
+	int		span;
 
 	if (first != 'o')
 	{
@@ -76,7 +68,6 @@ static short set_active_opt(short opt, char first)
 	return (tmp | opt);
 }
 
-
 /*
 ** set_active_multi_opt:
 **
@@ -84,33 +75,14 @@ static short set_active_opt(short opt, char first)
 ** Call set_active_opt for each option letter.
 */
 
-static short set_active_multi_opt(short opt, char *opt_name)
+static short	set_active_multi_opt(short opt, char *opt_name)
 {
-	int i;
-	i = 1;
+	int		i;
 
-	while(opt_name[i])
+	i = 1;
+	while (opt_name[i])
 		opt = set_active_opt(opt, opt_name[i++]);
 	return (opt);
-}
-
-/*
-** create_tab:
-**
-** Allocate a char ** from a given size. Set all index to NULL.
-*/
-
-static char **create_tab(int size)
-{
-	int i;
-	char **tab;
-
-	if (!(tab = (char **)malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
-	i = 0;
-	while (i <= size)
-		tab[i++] = NULL;
-	return (tab);
 }
 
 /*
@@ -119,7 +91,6 @@ static char **create_tab(int size)
 ** Parse until a double hyphen (--) is found and store arguments files and also
 ** fill the option byte with set_active_multi_opt funciton.
 ** Display an error message if an option error occur.
-**
 */
 
 static int		option_fill(char ***argv, char **files_names, int *index)
@@ -131,14 +102,14 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 	active_opt = 0;
 	*argv += 1;
 	error = 1;
-	while (**argv && ft_strcmp(**argv, "--"))
+	while (**argv && ft_strcmp(**argv, "--") && error)
 	{
 		if (((invalid_opt = is_valid_opt(**argv)) >= 0))
 		{
 			if (invalid_opt != 0)
 				return (ft_printf("ls: illegal option -- %c\n", \
-				 	**argv[invalid_opt]) ? -1 : -1);
-			active_opt = set_active_multi_opt(active_opt, **argv);
+				**argv[invalid_opt]) ? -1 : -1);
+				active_opt = set_active_multi_opt(active_opt, **argv);
 		}
 		else
 		{
@@ -163,7 +134,8 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 ** - a bit from 0 to x which store option. Use mask to analyse them.
 */
 
-int		parse_argv_option(int argc, char **argv, char ***files_names)
+int				parse_argv_option(int argc, char **argv,
+								char ***files_names)
 {
 	short	active_opt;
 	int		index;
@@ -172,7 +144,6 @@ int		parse_argv_option(int argc, char **argv, char ***files_names)
 	active_opt = 0;
 	index = 0;
 	error = 1;
-
 	if (!(*files_names = create_tab(argc)))
 		return (-1);
 	if ((active_opt = option_fill(&argv, *files_names, &index)) == -1)
