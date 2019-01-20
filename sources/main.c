@@ -42,7 +42,9 @@ int main(int argc, char **argv)
 		ft_printf("1 is active\n");
 	if (A_MIN & activ_opt)
 		ft_printf("a is active\n");
-	parse_folder(files[0], &file_list);
+	printf("folder : %s\n", files[0]);
+	if (parse_folder(files[0], &file_list) == -1)
+		return (ft_printf("error\n")); 
 	print_folder(file_list);
 	printf("\ninsert sort : \n");
 	insert_sort(&file_list, time_compare);
