@@ -4,9 +4,12 @@
 # include <sys/stat.h>
 # include <sys/xattr.h>
 # include <unistd.h>
+<<<<<<< HEAD
 # include <stdlib.h>
 # include <dirent.h>
 # include <time.h>
+=======
+>>>>>>> 50f7feb0e67d0122e740427427da555b80ad044a
 # include <limits.h> // PATH_MAX
 # include <stdio.h>
 # include <sys/types.h>
@@ -71,6 +74,19 @@ int			push_file(t_file **folder, char *parent_dir, char *path);
 
 int			parse_folder(char *folder, t_file **folder_list);
 void		print_folder(t_file *folder);
+
+/*
+** Sorting funcitons
+*/
+
 void		insert_sort(t_file **folder, file_cmp cmp_function);
+
+int			modif_compare(t_file *file_1, t_file *file_2);
+int			time_compare(t_file *file_1, t_file *file_2);
+int			access_compare(t_file *file_1, t_file *file_2);
+int			creation_compare(t_file *file_1, t_file *file_2);
+int			ascii_compare(t_file *file_1, t_file *file_2);
+int			size_compare(t_file *file_1, t_file *file_2);
+
 
 #endif
