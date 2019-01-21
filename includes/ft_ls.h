@@ -35,7 +35,22 @@ struct		s_file
 	t_file		*next;
 };
 
+typedef struct s_file_head	t_file_head;
+
+struct		s_file_head
+{
+	int			max_len_filename;
+	int			max_len_symlink;
+	int			max_len_user;
+	int			max_len_group;
+	int			max_len_size;
+	int			block_number;
+	t_file		*file_list;
+};
+
 int			parse_argv_option(int argc, char **argv, char ***files_names);
+int			split_argv_filetype(char **files, int options, t_file **folder_list);
+
 #define ALL_OPT "utromlaUSRF1"
 				//1FRSUalmortu
 #define RESET_SORT 0b000110000001

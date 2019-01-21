@@ -15,7 +15,7 @@ char		*relative_path(char *folder, char *file)
 	char	*slash;
 	int		allocate;
 
-	if (ft_strequ(".", file) || ft_strequ("..", file))
+	if (folder == NULL || ft_strequ(".", file) || ft_strequ("..", file))
 		return (ft_strdup(file));
 	allocate = 0;
 	slash = ft_strrchr(folder, '/');

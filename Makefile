@@ -24,6 +24,8 @@ SRCS = ls_parsing.c \
 	   folder_reading.c \
 	   sort_algorithm.c \
 	   sort_functions.c \
+	   maximum_setup.c \
+	   argv_separator.c \
 
 ifeq ($(filter $(MAKECMDGOALS), simon enzo),)
 SRCS += main.c
@@ -56,11 +58,12 @@ proper:fclean
 	$(foreach Lib, $(LIBRAIRIES), make -C $(Lib) $@ &&) true
 	rm -f $(DEPENDENCIES)
 
-enzo: $(OBJS) sources/enzo_main.o
-	$(CC) $(CFLAGS) $^ $(LIBS_ARCHIVE_FILES) -o $(NAME)
+simon enzo: $(LIBS_ARCHIVE_FILES) | get_lib
+enzo: $(OBJS) sources/enzo_main.o 
+	$(CC) $(CFLAGS) $(filter-out get_lib, $^) $(LIBS_ARCHIVE_FILES) -o $(NAME)
 
-simon: $(OBJS) sources/simon_main.o
-	$(CC) $(CFLAGS) $^ $(LIBS_ARCHIVE_FILES) -o $(NAME)
+simon: $(OBJS) sources/simon_main.o	
+	$(CC) $(CFLAGS) $(filter-out get_lib, $^) $(LIBS_ARCHIVE_FILES) -o $(NAME)
 
 
 re: fclean all

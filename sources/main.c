@@ -1,9 +1,12 @@
 #include "ft_ls.h"
 
-
 int main(int argc, char **argv)
 {
-	if (argc && argv)
-		;
-	ft_printf("default\n");
+	char		**file_list;
+	int			activ_opt;
+	t_file		*folder_list;
+
+	if ((activ_opt = parse_argv_option(argc, argv, &file_list)) == -1)
+		return (-1);
+	return (0);
 }
