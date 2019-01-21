@@ -13,7 +13,7 @@ void	print_folder(t_file *folder)
 	}
 }
 
-int		parse_folder(char *folder, t_file **folder_list)
+int		parse_folder(char *folder, t_file **folder_list) // int active_opt
 {
 	struct dirent	*sub_dir;
 	DIR				*dir;
@@ -22,6 +22,7 @@ int		parse_folder(char *folder, t_file **folder_list)
 		return (-1);
 	while ((sub_dir = readdir(dir)))
 	{
+		// selection on -a
 		if (push_file(folder_list, folder, sub_dir->d_name) == -1)
 			return (free_folder(folder_list, -1));
 	}
