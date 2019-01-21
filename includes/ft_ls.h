@@ -20,16 +20,18 @@
 typedef struct s_file t_file;
 typedef int	(*file_cmp)(t_file *, t_file *);
 
+# define RIGHT_LEN 12
+
 struct		s_file
 {
 	struct stat	*info;
 	char		*path;
 	char		*filename;
-
 	char		*pw_name;
 	char		*gr_name;
 	char    	*modification_time;
 	char		symbolic_link[PATH_MAX];// ssize_t readlink(const char *restrict path, char *restrict buf, size_t bufsize);
+	char		right[RIGHT_LEN];
 	char		ftype;
 	//char		xattr; // ssize_t listxattr(const char *path, char *namebuf, size_t size, int options);
 	t_file		*next;
