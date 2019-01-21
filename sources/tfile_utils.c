@@ -1,5 +1,15 @@
 #include "ft_ls.h"
 
+/*
+** relative_path:
+**
+** create relative path of file relatively of folder.
+**
+** return value:
+** NULL return if malloc fails.
+** string containing relative path if success.
+*/
+
 char		*relative_path(char *folder, char *file)
 {
 	char	*slash;
