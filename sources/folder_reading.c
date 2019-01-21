@@ -1,6 +1,4 @@
 #include "ft_ls.h"
-#include <dirent.h>
-#include <time.h>
 
 void	print_folder(t_file *folder)
 {
