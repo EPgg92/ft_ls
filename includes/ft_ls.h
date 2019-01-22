@@ -32,7 +32,7 @@ struct		s_file
 	char		*pw_name;
 	char		*gr_name;
 	char    	*modification_time;
-	char		symbolic_link[PATH_MAX];// ssize_t readlink(const char *restrict path, char *restrict buf, size_t bufsize);
+	char		symbolic_link[PATH_MAX];
 	char		right[RIGHT_LEN];
 	char		ftype;
 	//char		xattr; // ssize_t listxattr(const char *path, char *namebuf, size_t size, int options);
