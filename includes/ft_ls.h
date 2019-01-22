@@ -86,7 +86,7 @@ int			push_file(t_file **folder, char *parent_dir, char *path);
 ** Directory parsing
 */
 
-int			parse_folder(char *folder, t_file **folder_list);
+int			parse_folder(char *folder, t_file **folder_list, int active_opt);
 void		print_folder(t_file *folder);
 
 /*
