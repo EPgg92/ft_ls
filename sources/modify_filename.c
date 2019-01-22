@@ -1,4 +1,4 @@
-#include "../includes/ft_ls.h"
+#include "ft_ls.h"
 
 static int add_char_to_name(char **name, char c)
 {
