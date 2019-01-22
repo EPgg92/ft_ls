@@ -28,7 +28,21 @@ int		parse_folder(char *folder, t_file **folder_list) // int active_opt
 	return (1);
 }
 
-
+/*
+** stock_file_list:
+**
+** From a list of file, create a t_file list.
+*/
+int			stock_file_list(char **files, t_file **list_file)
+{
+	while (*files)
+	{
+		if (!push_file(list_file, NULL, *files))
+			return (free_folder(list_file, -1));
+		files++;
+	}
+	return (1);
+}
 
 int			test_readdir(char *name_dir)
 {

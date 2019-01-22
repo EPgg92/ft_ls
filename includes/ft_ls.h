@@ -20,7 +20,9 @@
 typedef struct s_file t_file;
 typedef int	(*file_cmp)(t_file *, t_file *);
 
-# define RIGHT_LEN 12
+# define RIGHT_LEN	12
+# define FOLDER		1
+# define FILES		2
 
 struct		s_file
 {
@@ -42,7 +44,7 @@ typedef struct s_file_head	t_file_head;
 struct		s_file_head
 {
 	int			opts;
-	char		*file_pattern;
+	char		*print_pattern;
 	int			len_filename;
 	int			len_symlink;
 	int			len_user;
@@ -85,11 +87,14 @@ int			free_folder(t_file **folder, int status);
 int			create_tfile(char *parent, char *path, t_file **node);
 int			push_file(t_file **folder, char *parent_dir, char *path);
 
+t_file_head	*t_file_head_initialisation(void);
+
 /*
 ** Directory parsing
 */
 
 int			parse_folder(char *folder, t_file **folder_list);
+int			stock_file_list(char **files, t_file **list_file);
 void		print_folder(t_file *folder);
 
 /*
@@ -110,5 +115,8 @@ int			size_compare(t_file *file_1, t_file *file_2);
 */
 
 char		*get_printing_pattern(t_file_head *head_file);
+void		select_sort(int active_opt, t_file **folder);
+void		set_maximum_info(t_file_head *head_file);
+int			process_manager(char **file_or_dir, t_file_head *head, int type);
 
 #endif

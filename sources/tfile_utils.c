@@ -74,7 +74,7 @@ void mode_right_setup(t_file **node, char ftype, char right_0)
 	char	*right;
 
 	st_mode = (*node)->info->st_mode;
-	right = &(*node)->right;
+	right = (*node)->right;
 	(*node)->ftype = ftype;
 	right[0] = right_0;
 	right[1] = (st_mode & S_IRUSR) ? 'r' : '-';

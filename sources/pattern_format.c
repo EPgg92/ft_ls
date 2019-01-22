@@ -68,9 +68,9 @@ static char	*o_long_format(char *curr_format)
 	while (index < 3)
 	{
 		index++;
-		specifier = ft_strchr(specifier, '%');
+		specifier = ft_strchr(specifier + 1, '%');
 	}
-	ft_strmove(specifier, ft_strchr(specifier, '%'));
+	ft_strmove(specifier, ft_strchr(specifier + 1, '%'));
 	return (curr_format);
 }
 
@@ -79,13 +79,12 @@ char		*get_printing_pattern(t_file_head *head_file)
 {
 	char	*format;
 
-	if (!(format = (char *)malloc(sizeof(char) * 3)))
+	if (!(format = field_formating(head_file->len_filename, 's')))
 		return (NULL);
-	ft_strcpy(format, "%s");
 	if (head_file->opts & L_MIN)
-		long_format(head_file, format);
+		format = long_format(head_file, format);
 	if (head_file->opts & O_MIN)
-		o_long_format(format);
-	head_file->file_pattern = format;
+		format = o_long_format(format);
+	head_file->print_pattern = format;
 	return (format);
 }
