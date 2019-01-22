@@ -9,7 +9,7 @@ void reverse_files(t_file **files)
 	next = NULL;
 	prev = NULL;
 	current = *files;
-	while (current != NULL)
+	while (!current)
 	{
 		next = current->next;
 		current->next = prev;

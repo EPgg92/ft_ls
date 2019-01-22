@@ -13,14 +13,15 @@ void	select_sort(int active_opt, t_file **folder)
 	else
 		insert_sort(folder, ascii_compare);
 	if (R_MIN & active_opt)
-		; // reverse order func
+		reverse_files(folder);
 }
 
-void	select_print(int active_opt, t_file **folder)
+int		select_print(int active_opt, t_file **folder)
 {
 	folder = NULL;
 	if (F_MAJ & active_opt)
-		modify_filename(folder);
+		if (modify_filename(folder) == -1)
+			return (-1);
 	if (O_MIN & active_opt)
 		; //longformat_nogroup_print(folder);
 	else if (L_MIN & active_opt)
@@ -31,4 +32,5 @@ void	select_print(int active_opt, t_file **folder)
 		; //one_colum_print(folder);
 	else
 		; //simple_print(folder);
+	return (1);
 }

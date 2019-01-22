@@ -23,7 +23,7 @@ int modify_filename(t_file **folder)
 	node = *folder;
 	while (node)
 	{
-		if (add_char_to_name(&node->filename, node->ftype) > 0)
+		if (add_char_to_name(&node->filename, node->ftype) == -1)
 			return (-1);
 		node = node->next;
 	}
