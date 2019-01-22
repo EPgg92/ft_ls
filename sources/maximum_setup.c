@@ -6,7 +6,7 @@
 ** Set each attribute used as maximum of the t_file_head to zero.
 */
 
-void	reset_maximum(t_file_head *head_file)
+static void	reset_maximum(t_file_head *head_file)
 {
 	head_file->len_filename = 0;
 	head_file->len_symlink= 0;
