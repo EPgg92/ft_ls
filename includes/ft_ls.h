@@ -39,13 +39,16 @@ typedef struct s_file_head	t_file_head;
 
 struct		s_file_head
 {
-	int			max_len_filename;
-	int			max_len_symlink;
-	int			max_len_user;
-	int			max_len_group;
-	int			max_len_size;
+	int			opts;
+	char		*file_pattern;
+	int			len_filename;
+	int			len_symlink;
+	int			len_user;
+	int			len_group;
+	int			len_size;
 	int			block_number;
-	t_file		*file_list;
+	t_file		*arg_fold;
+	t_file		*work_list;
 };
 
 int			parse_argv_option(int argc, char **argv, char ***files_names);
@@ -100,5 +103,10 @@ int			creation_compare(t_file *file_1, t_file *file_2);
 int			ascii_compare(t_file *file_1, t_file *file_2);
 int			size_compare(t_file *file_1, t_file *file_2);
 
+/*
+** t_file printing process
+*/
+
+char		*get_printing_pattern(t_file_head *head_file);
 
 #endif
