@@ -13,7 +13,6 @@ static int add_char_to_name(char **name, char c)
 	ft_strdel(name);
 	name = &tmp;
 	return (1);
-
 }
 
 int modify_filename(t_file **folder)
