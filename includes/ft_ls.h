@@ -32,7 +32,7 @@ struct		s_file
 	char		*pw_name;
 	char		*gr_name;
 	char    	*modification_time;
-	char		symbolic_link[PATH_MAX];
+	char		symbolic_link[PATH_MAX];// ssize_t readlink(const char *restrict path, char *restrict buf, size_t bufsize);
 	char		right[RIGHT_LEN];
 	char		ftype;
 	//char		xattr; // ssize_t listxattr(const char *path, char *namebuf, size_t size, int options);
@@ -53,6 +53,7 @@ struct		s_file_head
 	int			block_number;
 	t_file		*arg_fold;
 	t_file		*work_list;
+	int			print_foldname;
 };
 
 int			parse_argv_option(int argc, char **argv, char ***files_names);
@@ -120,5 +121,6 @@ char		*get_printing_pattern(t_file_head *head_file);
 void		select_sort(int active_opt, t_file **folder);
 void		set_maximum_info(t_file_head *head_file);
 int			process_manager(char **file_or_dir, t_file_head *head, int type);
+int			t_file_list_len(t_file *file_list);
 int 		modify_filename(t_file **folder);
 #endif

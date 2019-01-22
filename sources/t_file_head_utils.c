@@ -25,5 +25,6 @@ t_file_head		*t_file_head_initialisation(void)
 	file_head->work_list = NULL;
 	file_head->arg_fold = NULL;
 	file_head->print_pattern = NULL;
+	file_head->print_foldname = 0;
 	return (file_head);
 }

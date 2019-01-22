@@ -31,6 +31,7 @@ int main(int argc, char **argv)
 {
 	char	**files;
 	t_file_head		*head_file;
+	t_file			*folders;
 
 	if (!(head_file = t_file_head_initialisation()))
 		return (-1);
@@ -38,12 +39,20 @@ int main(int argc, char **argv)
 	head_file->opts = parse_argv_option(argc, argv, &files);
 	if (head_file->opts == -1)
 		return (ft_printf("error\n"));
-	if (split_argv_filetype(files, head_file->opts, &head_file->arg_fold) == -1)
+	if ((argc = split_argv_filetype(files, head_file->opts, \
+					&head_file->arg_fold)) == -1)
 		return (ft_printf("error\n"));
-	process_manager(files, head_file, FILES);
-	print_max(head_file);
-
-	print_list(head_file->arg_fold);
-	print_array(files);
-
+	if (*files)
+	{
+		process_manager(files, head_file, FILES);
+		head_file->print_foldname = 1;
+	}
+	folders = head_file->arg_fold;
+	if (t_file_list_len(head_file->arg_fold) >= 2)
+		head_file->print_foldname = 1;
+	while (folders)
+	{
+		process_manager(&folders->filename, head_file, FOLDER);
+		folders = folders->next;
+	}
 }
