@@ -57,6 +57,7 @@ int		parse_folder(char *folder, t_file **folder_list, int active_opt)
 **
 ** From a list of file, create a t_file list.
 */
+
 int			stock_file_list(char **files, t_file **list_file)
 {
 	while (*files)
@@ -66,24 +67,4 @@ int			stock_file_list(char **files, t_file **list_file)
 		files++;
 	}
 	return (1);
-}
-
-int			test_readdir(char *name_dir)
-{
-    DIR *d;
-    struct dirent *dir;
-	struct stat info;
-
-    d = opendir(name_dir);
-	ft_printf("d value %p\n", d);
-    if (d)
-    {
-        while ((dir = readdir(d)) != NULL)
-            printf("%s\n", dir->d_name);
-        closedir(d);
-    }
-	if (lstat(name_dir, &info) == -1)
-		return (ft_printf("error\n"));
-	ft_printf("mode : %o\n", info.st_mode);
-    return(0);
 }
