@@ -14,6 +14,7 @@ static void	reset_maximum(t_file_head *head_file)
 	head_file->len_group = 0;
 	head_file->len_size = 0;
 	head_file->block_number = 0;
+	head_file->files_number = 0;
 }
 
 /*
@@ -36,7 +37,9 @@ void	set_maximum_info(t_file_head *head_file)
 	file_lst = head_file->work_list;
 	while (file_lst)
 	{
+		head_file->files_number++;
 		tmp_len = ft_strlen(file_lst->filename);
+		file_lst->file_len = tmp_len;
 		if (tmp_len > head_file->len_filename)
 			head_file->len_filename = tmp_len;
 		tmp_len = ft_unbrlen(file_lst->info->st_nlink);

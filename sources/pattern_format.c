@@ -74,12 +74,21 @@ static char	*o_long_format(char *curr_format)
 	return (curr_format);
 }
 
+static char		*format_filebase(t_file_head *head_file)
+{
+
+	if (head_file->opts & L_MIN || head_file->opts & O_MIN ||
+		head_file->opts & M_MIN)
+		return (ft_strdup("%s"));
+	else
+		return (field_formating(head_file->len_filename, 's'));
+}
 
 char		*get_printing_pattern(t_file_head *head_file)
 {
 	char	*format;
 
-	if (!(format = field_formating(head_file->len_filename, 's')))
+	if (!(format = format_filebase(head_file)))
 		return (NULL);
 	if (head_file->opts & L_MIN)
 		format = long_format(head_file, format);

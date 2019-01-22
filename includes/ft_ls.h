@@ -50,6 +50,7 @@ typedef struct s_file t_file;
 struct		s_file
 {
 	char		*filename;
+	int			file_len;
 	char		*gr_name;
 	char		*path;
 	char		*pw_name;
@@ -73,6 +74,8 @@ struct		s_file_head
 	int			len_user;
 	int			opts;
 	int			print_foldname;
+	int			window_width;
+	int 		files_number;
 	t_file		*arg_fold;
 	t_file		*work_list;
 };
@@ -125,4 +128,17 @@ void		set_maximum_info(t_file_head *head_file);
 int			process_manager(char **file_or_dir, t_file_head *head, int type);
 int			t_file_list_len(t_file *file_list);
 int 		modify_filename(t_file **folder);
+
+
+
+typedef void	(*print_mode)(t_file_head *);
+
+//void 		print_manager(t_file_head *head_file, print_mode prt_fct, char *folder);
+
+void		l_print(t_file_head *);
+void		basic_print(t_file_head *);
+void		one_print(t_file_head *);
+void		o_print(t_file_head *);
+int		select_print(t_file_head *head, char *folder);
+
 #endif

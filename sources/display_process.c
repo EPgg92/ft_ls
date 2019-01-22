@@ -15,10 +15,8 @@ int			process_manager(char **file_or_dir, t_file_head *head_file, int type)
 	set_maximum_info(head_file);
 	if (!get_printing_pattern(head_file))
 		return (-1);
-	ft_printf("My pattern : '%s'\n", head_file->print_pattern);
 	select_sort(head_file->opts, &head_file->work_list);
-	//PRINT()
+	select_print(head_file, *file_or_dir);
 	return (1);
 
 }
-

@@ -6,7 +6,7 @@
 /*   By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 08:38:27 by simrossi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/21 15:58:55 by simrossi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/23 00:14:41 by epoggio     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,6 +95,7 @@ int				free_str_array(char ***array, int status);
 void			ft_strclear(char *str, int from);
 int				ft_strdel_out(char **str, int status);
 void			ft_strmove(char *begin_str, char *new_begin);
+char			*ft_strreplace(char *dst, char chr, char repl_chr);
 int				ft_move_strtab(char **tab, int len, int from, int to);
 
 /*

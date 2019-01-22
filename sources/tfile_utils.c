@@ -79,6 +79,7 @@ static void set_null_tfile(t_file **node)
 	(*node)->gr_name = NULL;
 	(*node)->modification_time = NULL;
 	(*node)->next = NULL;
+	(*node)->file_len = 0;
 }
 
 void mode_right_setup(t_file **node, char ftype, char right_0)
@@ -159,7 +160,7 @@ int		create_tfile(char *parent, char *path, t_file **node)
 	error *= lstat((*node)->path, (*node)->info) == 0 ? 1 : 0;
 	(*node)->pw_name = (getpwuid((*node)->info->st_uid))->pw_name;
 	(*node)->gr_name = (getgrgid((*node)->info->st_gid))->gr_name;
-	(*node)->modification_time = ctime(&(*node)->info->st_mtimespec.tv_sec);
+	(*node)->modification_time = NULL;
 	ft_bzero((*node)->symbolic_link, PATH_MAX);
 	ft_bzero((*node)->right, RIGHT_LEN);
 	if (S_ISLNK((*node)->info->st_mode))
