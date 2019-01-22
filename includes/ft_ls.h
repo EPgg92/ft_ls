@@ -1,83 +1,84 @@
 #ifndef FT_LS_H
 # define FT_LS_H
+
 # include "libft.h"
-# include <sys/stat.h>
-# include <sys/xattr.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include <dirent.h>
-# include <time.h>
-# include <limits.h> // PATH_MAX
-# include <stdio.h>
-# include <sys/types.h>
-# include <pwd.h>
-# include <uuid/uuid.h>
 # include <grp.h>
-# include <uuid/uuid.h>
+# include <pwd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/stat.h>
 # include <sys/types.h>
-# include <sys/acl.h>
+# include <time.h>
+# include <unistd.h>
+# include <uuid/uuid.h>
+
+/*
+** Bonus
+**
+** sys/ioctl.h to display columns relatively to the term size.
+** imits.h to
+*/
+
+# include <limits.h>
+# include <sys/ioctl.h>
+
+/*
+** All constants
+*/
+
+# define ALL_OPT		"utromlaUSRF1"
+# define RESET_SORT 	0b000110000001
+# define RESET_PRINT 	0b100000111000
+# define U_MIN			0b1
+# define T_MIN 			0b10
+# define R_MIN			0b100
+# define O_MIN 			0b1000
+# define M_MIN			0b10000
+# define L_MIN 			0b100000
+# define A_MIN			0b1000000
+# define U_MAJ			0b10000000
+# define S_MAJ			0b100000000
+# define R_MAJ			0b1000000000
+# define F_MAJ			0b10000000000
+# define OPT_1			0b100000000000
+# define RIGHT_LEN		12
+# define FOLDER			1
+# define FILES			2
 
 typedef struct s_file t_file;
-typedef int	(*file_cmp)(t_file *, t_file *);
-
-# define RIGHT_LEN	12
-# define FOLDER		1
-# define FILES		2
-
 struct		s_file
 {
-	struct stat	*info;
-	char		*path;
 	char		*filename;
-	char		*pw_name;
 	char		*gr_name;
-	char    	*modification_time;
-	char		symbolic_link[PATH_MAX];// ssize_t readlink(const char *restrict path, char *restrict buf, size_t bufsize);
-	char		right[RIGHT_LEN];
+	char		*path;
+	char		*pw_name;
 	char		ftype;
-	//char		xattr; // ssize_t listxattr(const char *path, char *namebuf, size_t size, int options);
+	char		right[RIGHT_LEN];
+	char		symbolic_link[PATH_MAX];
+	char    	*modification_time;
+	struct stat	*info;
 	t_file		*next;
 };
 
 typedef struct s_file_head	t_file_head;
-
 struct		s_file_head
 {
-	int			opts;
 	char		*print_pattern;
+	int			block_number;
 	int			len_filename;
-	int			len_symlink;
-	int			len_user;
 	int			len_group;
 	int			len_size;
-	int			block_number;
+	int			len_symlink;
+	int			len_user;
+	int			opts;
+	int			print_foldname;
 	t_file		*arg_fold;
 	t_file		*work_list;
-	int			print_foldname;
 };
 
 int			parse_argv_option(int argc, char **argv, char ***files_names);
 int			split_argv_filetype(char **files, int options, t_file **folder_list);
-
-#define ALL_OPT "utromlaUSRF1"
-				//1FRSUalmortu
-#define RESET_SORT 0b000110000001
-#define RESET_PRINT 0b100000111000
-
-# define U_MIN 0b1
-# define T_MIN 0b10
-# define R_MIN 0b100
-# define O_MIN 0b1000
-# define M_MIN 0b10000
-# define L_MIN 0b100000
-# define A_MIN 0b1000000
-# define U_MAJ 0b10000000
-# define S_MAJ 0b100000000
-# define R_MAJ 0b1000000000
-# define F_MAJ 0b10000000000
-# define OPT_1 0b100000000000
-
-int			test_readdir(char *name_dir);
 
 /*
 ** Utils for t_file elements.
@@ -94,7 +95,7 @@ t_file_head	*t_file_head_initialisation(void);
 ** Directory parsing
 */
 
-int		parse_folder(char *folder, t_file **folder_list, int active_opt);
+int			parse_folder(char *folder, t_file **folder_list, int active_opt);
 int			stock_file_list(char **files, t_file **list_file);
 
 void		print_folder(t_file *folder);
@@ -103,6 +104,7 @@ void		print_folder(t_file *folder);
 ** Sorting funcitons
 */
 
+typedef int	(*file_cmp)(t_file *, t_file *);
 void		insert_sort(t_file **folder, file_cmp cmp_function);
 
 int			modif_compare(t_file *file_1, t_file *file_2);
