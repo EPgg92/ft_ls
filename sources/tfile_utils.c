@@ -162,6 +162,7 @@ int		create_tfile(char *parent, char *path, t_file **node)
 	(*node)->modification_time = ctime(&(*node)->info->st_mtimespec.tv_sec);
 	ft_bzero((*node)->symbolic_link, PATH_MAX);
 	ft_bzero((*node)->right, RIGHT_LEN);
+	ft_memset((*node)->right, (int)'-', RIGHT_LEN-2);
 	if (S_ISLNK((*node)->info->st_mode))
 		readlink((*node)->path, (*node)->symbolic_link, PATH_MAX);
 	return (error == 1 ? 1: free_file_node(node, -1));
