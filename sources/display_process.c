@@ -6,7 +6,8 @@ int			process_manager(char **file_or_dir, t_file_head *head_file, int type)
 
 	creation = 0;
 	if (type == FOLDER)
-		creation = parse_folder(*file_or_dir, &head_file->work_list);
+		creation = parse_folder(*file_or_dir, \
+				&head_file->work_list, head_file->opts);
 	else if (type == FILES)
 		creation = stock_file_list(file_or_dir, &head_file->work_list);
 	if (creation == -1)

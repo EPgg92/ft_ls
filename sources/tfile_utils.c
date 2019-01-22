@@ -1,5 +1,18 @@
 #include "ft_ls.h"
 
+int			t_file_list_len(t_file *file_list)
+{
+	int		index;
+
+	index = 0;
+	while (file_list)
+	{
+		file_list = file_list->next;
+		index++;
+	}
+	return (index);
+}
+
 /*
 ** relative_path:
 **

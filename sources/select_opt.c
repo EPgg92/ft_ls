@@ -20,7 +20,7 @@ void	select_print(int active_opt, t_file **folder)
 {
 	folder = NULL;
 	if (F_MAJ & active_opt)
-		modify_filename(folder);
+		; //modify_filename(folder);
 	if (O_MIN & active_opt)
 		; //longformat_nogroup_print(folder);
 	else if (L_MIN & active_opt)
