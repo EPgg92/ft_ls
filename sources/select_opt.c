@@ -1,10 +1,5 @@
 #include "ft_ls.h"
 
-int select_hidden(int active_opt, t_file **folder)
-{
-	return 0;
-}
-
 void	select_sort(int active_opt, t_file **folder)
 {
 	if (U_MIN & active_opt)
