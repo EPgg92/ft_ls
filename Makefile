@@ -30,6 +30,8 @@ SRCS = ls_parsing.c \
 	   select_opt.c \
 	   t_file_head_utils.c \
 	   display_process.c \
+	   modify_filename.c \
+	   reverse_files.c
 
 ifeq ($(filter $(MAKECMDGOALS), simon enzo),)
 SRCS += main.c
@@ -63,10 +65,10 @@ proper:fclean
 	rm -f $(DEPENDENCIES)
 
 simon enzo: $(LIBS_ARCHIVE_FILES) | get_lib
-enzo: $(OBJS) sources/enzo_main.o 
+enzo: $(OBJS) sources/enzo_main.o
 	$(CC) $(CFLAGS) $(filter-out get_lib, $^) $(LIBS_ARCHIVE_FILES) -o $(NAME)
 
-simon: $(OBJS) sources/simon_main.o	
+simon: $(OBJS) sources/simon_main.o
 	$(CC) $(CFLAGS) $(filter-out get_lib, $^) $(LIBS_ARCHIVE_FILES) -o $(NAME)
 
 

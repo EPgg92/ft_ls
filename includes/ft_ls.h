@@ -111,6 +111,7 @@ int			access_compare(t_file *file_1, t_file *file_2);
 int			creation_compare(t_file *file_1, t_file *file_2);
 int			ascii_compare(t_file *file_1, t_file *file_2);
 int			size_compare(t_file *file_1, t_file *file_2);
+void 		reverse_files(t_file **files);
 
 /*
 ** t_file printing process
@@ -121,5 +122,5 @@ void		select_sort(int active_opt, t_file **folder);
 void		set_maximum_info(t_file_head *head_file);
 int			process_manager(char **file_or_dir, t_file_head *head, int type);
 int			t_file_list_len(t_file *file_list);
-
+int 		modify_filename(t_file **folder);
 #endif
