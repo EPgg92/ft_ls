@@ -26,6 +26,10 @@ SRCS = ls_parsing.c \
 	   sort_functions.c \
 	   maximum_setup.c \
 	   argv_separator.c \
+	   pattern_format.c \
+	   select_opt.c \
+	   t_file_head_utils.c \
+	   display_process.c \
 
 ifeq ($(filter $(MAKECMDGOALS), simon enzo),)
 SRCS += main.c
