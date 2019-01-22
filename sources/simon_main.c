@@ -8,6 +8,24 @@ void	printf_files(char **argv)
 	ft_printf("\n\n");
 }
 
+void	print_array(char **array)
+{
+	ft_printf("New printf : \n");
+	while (*array)
+		ft_printf("%s\n", *array++);
+	ft_printf("\n\n");
+}
+
+void	print_list(t_file *file_list)
+{
+	ft_printf("New printf list :\n");
+	while (file_list)
+	{
+		ft_printf("%s\n", file_list->path);
+		file_list = file_list->next;
+	}
+	ft_printf("\n\n");
+}
 
 int main(int argc, char **argv)
 {
@@ -18,7 +36,6 @@ int main(int argc, char **argv)
 	if (((activ_opt = parse_argv_option(argc, argv, &files)) == -1))
 		return (ft_printf("error\n"));
 	printf_files(files);
-	/*
 	ft_printf("value output : %d\n", activ_opt);
 	if (L_MIN & activ_opt)
 		ft_printf("l is active\n");
@@ -43,7 +60,6 @@ int main(int argc, char **argv)
 	if (A_MIN & activ_opt)
 		ft_printf("a is active\n");
 	printf("folder : %s\n", files[0]);
-	*/
 	if (parse_folder(files[0], &file_list) == -1)
 		return (ft_printf("error\n")); 
 	print_folder(file_list);
