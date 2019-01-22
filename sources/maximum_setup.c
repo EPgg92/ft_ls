@@ -1,12 +1,39 @@
 #include "ft_ls.h"
 
+/*
+** reset_maximum:
+**
+** Set each attribute used as maximum of the t_file_head to zero.
+*/
+
+void	reset_maximum(t_file_head *head_file)
+{
+	head_file->len_filename = 0;
+	head_file->len_symlink= 0;
+	head_file->len_user = 0;
+	head_file->len_group = 0;
+	head_file->len_size = 0;
+	head_file->block_number = 0;
+}
+
+/*
+** set_maximum_info:
+**
+** Parse and entire t_file list and set to the head each maximum of different
+** element : - filename max len
+**			 - link number max len
+**			 - username max len
+**			 - groupname max len
+**			 - file size max len
+** Count also the total number of blocks.
+*/
 void	set_maximum_info(t_file_head *head_file)
 {
 	t_file	*file_lst;
 	int		tmp_len;
 
+	reset_maximum(head_file);
 	file_lst = head_file->work_list;
-	head_file->block_number = 0;
 	while (file_lst)
 	{
 		tmp_len = ft_strlen(file_lst->filename);
