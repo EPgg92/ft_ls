@@ -1,5 +1,12 @@
 #include "ft_ls.h"
 
+static void		clean_process(t_file_head *head_file)
+{
+	if (head_file->work_list)
+		free_folder(&head_file->work_list, (int)NULL);
+	ft_strdel(&head_file->print_pattern);
+}
+
 int			process_manager(char **file_or_dir, t_file_head *head_file, int type)
 {
 	int		creation;
@@ -17,7 +24,7 @@ int			process_manager(char **file_or_dir, t_file_head *head_file, int type)
 		return (-1);
 	select_sort(head_file->opts, &head_file->work_list);
 	select_print(head_file, *file_or_dir);
-	free_folder(&head_file->work_list, 0);
+	clean_process(head_file);
 	return (1);
 
 }

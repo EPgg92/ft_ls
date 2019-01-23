@@ -24,6 +24,7 @@ static char	*field_formating(int value, char specifier, int options)
 	ft_strcpy(format + 1 + ((options & ALIGN_OPT) != 0), value_str);
 	format[1 + nbr_len + ((options & ALIGN_OPT) != 0)] = specifier;
 	format[2 + nbr_len + ((options & ALIGN_OPT) != 0)] = '\0';
+	ft_strdel(&value_str);
 	return (format);
 }
 
@@ -59,14 +60,14 @@ static char	*long_format(t_file_head *head, char *curr_format)
 		return (NULL);
 	if (!(additional_str = add_field(&additional_str, head->len_user, 's', DBL_SPACE | ALIGN_OPT)))
 		return (NULL);
-	if (!(additional_str = add_field(&additional_str, head->len_group, 's', SPACE_OPT | ALIGN_OPT)))
+	if (!(additional_str = add_field(&additional_str, head->len_group, 's', DBL_SPACE | ALIGN_OPT)))
 		return (NULL);
 	if (!(additional_str = add_field(&additional_str, head->len_size, 'd', SPACE_OPT )))
 		return (NULL);
 	tmp_str = "%s ";
 	if (!(additional_str = ft_fstrjoin(&additional_str, &tmp_str, 1, NO_OPT)))
 		return (NULL);
-	return (ft_fstrjoin(&additional_str, &curr_format, 1, 0));
+	return (ft_fstrjoin(&additional_str, &curr_format, 1, 1));
 }
 
 static char	*o_long_format(char *curr_format)
@@ -89,7 +90,7 @@ static char		*format_filebase(t_file_head *head_file)
 {
 
 	if (head_file->opts & L_MIN || head_file->opts & O_MIN ||
-		head_file->opts & M_MIN)
+		head_file->opts & M_MIN || head_file->opts & OPT_1)
 		return (ft_strdup("%s"));
 	else
 		return (field_formating(head_file->len_filename, 's', NO_OPT));

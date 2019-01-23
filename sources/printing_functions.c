@@ -77,7 +77,7 @@ void 		m_print(t_file_head *head_file)
 	printed = 0;
 	while (file_list)
 	{
-		if (printed + file_list->file_len > head_file->window_width)
+		if (printed + file_list->file_len + 2 > head_file->window_width)
 		{
 			printed = 0;
 			ft_printf("\n");

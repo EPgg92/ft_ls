@@ -52,6 +52,9 @@ int		free_file_node(t_file **folder, int status)
 	free((*folder)->path);
 	free((*folder)->filename);
 	free((*folder)->info);
+	free((*folder)->pw_name);
+	free((*folder)->gr_name);
+	free((*folder)->modification_time);
 	free(*folder);
 	*folder = NULL;
 	return (status);
@@ -94,18 +97,24 @@ void mode_right_setup(t_file **node, char ftype, char right_0)
 	right[1] = (st_mode & S_IRUSR) ? 'r' : '-';
 	right[2] = (st_mode & S_IWUSR) ? 'w' : '-';
 	right[3] = (st_mode & S_IXUSR) ? 'x' : '-';
-	right[3] = (st_mode & S_ISUID && right[3] == 'x') ? 's' : 'x';
-	right[3] = (st_mode & S_ISUID && right[3] == '-') ? 'S' : '-';
+	if (right[3] == 'x')
+		right[3] = st_mode & S_ISUID ? 's' : 'x';
+	else
+		right[3] = (st_mode & S_ISUID && right[3] == '-') ? 'S' : '-';
 	right[4] = (st_mode & S_IRGRP) ? 'r' : '-';
 	right[5] = (st_mode & S_IWGRP) ? 'w' : '-';
 	right[6] = (st_mode & S_IXGRP) ? 'x' : '-';
-	right[6] = (st_mode & S_ISGID && right[6] == 'x') ? 's' : 'x';
-	right[6] = (st_mode & S_ISGID && right[6] == '-') ? 'S' : '-';
+	if (right[6] == 'x')
+		right[6] = st_mode & S_ISGID ? 's' : 'x';
+	else
+		right[6] = st_mode & S_ISGID ? 'S' : '-';
 	right[7] = (st_mode & S_IROTH) ? 'r' : '-';
 	right[8] = (st_mode & S_IWOTH) ? 'w' : '-';
 	right[9] = (st_mode & S_IXOTH) ? 'x' : '-';
-	right[9] = (st_mode & S_ISVTX && right[9] == 'x') ? 't' : 'x';
-	right[9] = (st_mode & S_ISVTX && right[9] == '-') ? 'T' : '-';
+	if (right[9] == 'x')
+		right[9] = st_mode & S_ISVTX ? 't' : 'x';
+	else
+		right[9] = st_mode & S_ISVTX ? 'T' : '-';
 	right[10] = ' '; //ACL XATRR
 }
 

@@ -91,10 +91,15 @@ int			split_argv_filetype(char **files, int options, t_file **folder_list);
 int			free_file_node(t_file **folder, int status);
 int			free_folder(t_file **folder, int status);
 int			create_tfile(char *parent, char *path, t_file **node);
-int			push_file(t_file **folder, char *parent_dir, char *path);
-void		format_all_date(int options, t_file *file_list);
-
 t_file_head	*t_file_head_initialisation(void);
+int			push_file(t_file **folder, char *parent_dir, char *path);
+void		free_file_head(t_file_head **head_file);
+
+/*
+** Informations getter
+*/
+
+void		format_all_date(int options, t_file *file_list);
 
 /*
 ** Directory parsing

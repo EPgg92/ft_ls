@@ -63,6 +63,7 @@ static void 	format_date(int active_opt, t_file *folder)
 		keep_year(str_date);
 	else
 		str_date[16] = '\0';
+	ft_strmove(str_date, str_date + 4);
 	folder->modification_time = str_date;
 }
 

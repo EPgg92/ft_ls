@@ -1,6 +1,20 @@
 #include "ft_ls.h"
 
 /*
+** free_head:
+**
+** Free each element of a t_file_head.
+*/
+
+void			free_file_head(t_file_head **head_file)
+{
+	free((*head_file)->print_pattern);
+	free_folder(&(*head_file)->arg_fold, 0);
+	free(*head_file);
+	*head_file = NULL;
+}
+
+/*
 ** t_file_head_initialisation:
 **
 ** Allocate a t_file_head element and set each attributes to 0 (or NULL).

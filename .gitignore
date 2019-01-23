@@ -6,3 +6,4 @@ a.out
 *.a
 a.out
 *.gch
+*.dSYM

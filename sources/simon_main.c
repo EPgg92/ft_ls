@@ -55,4 +55,6 @@ int main(int argc, char **argv)
 		process_manager(&folders->filename, head_file, FOLDER);
 		folders = folders->next;
 	}
+	free_file_head(&head_file);
+	free_str_array(&files, 0);
 }
