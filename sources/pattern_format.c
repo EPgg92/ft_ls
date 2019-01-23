@@ -1,5 +1,6 @@
 #include "ft_ls.h"
 // Format : "%s %xd %xs %xs %xd %s" + file
+#define DBL_SPACE	0b100
 #define SPACE_OPT	0b10
 #define ALIGN_OPT	0b1
 #define NO_OPT		0b0
@@ -38,9 +39,12 @@ static char	*add_field(char **old_format, int value, char specifier, int options
 	}
 	if (!(filled_field = ft_fstrjoin(old_format, &filled_field, 1, 1)))
 		return (NULL);
-	space_str = " ";
-	if (options & SPACE_OPT)
+	if (options & SPACE_OPT || options & DBL_SPACE)
+	{
+
+		space_str = options & DBL_SPACE ? "  " : " ";
 		return (ft_fstrjoin(&filled_field, &space_str, 1, 0));
+	}
 	return (filled_field);
 }
 
@@ -53,7 +57,7 @@ static char	*long_format(t_file_head *head, char *curr_format)
 		return (NULL);
 	if (!(additional_str = add_field(&additional_str, head->len_symlink, 'd', SPACE_OPT)))
 		return (NULL);
-	if (!(additional_str = add_field(&additional_str, head->len_user, 's', SPACE_OPT | ALIGN_OPT)))
+	if (!(additional_str = add_field(&additional_str, head->len_user, 's', DBL_SPACE | ALIGN_OPT)))
 		return (NULL);
 	if (!(additional_str = add_field(&additional_str, head->len_group, 's', SPACE_OPT | ALIGN_OPT)))
 		return (NULL);
