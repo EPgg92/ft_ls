@@ -17,6 +17,7 @@ int			process_manager(char **file_or_dir, t_file_head *head_file, int type)
 		return (-1);
 	select_sort(head_file->opts, &head_file->work_list);
 	select_print(head_file, *file_or_dir);
+	free_folder(&head_file->work_list, 0);
 	return (1);
 
 }

@@ -29,7 +29,7 @@ void		print_max(t_file_head *head)
 
 int main(int argc, char **argv)
 {
-	char	**files;
+	char			**files;
 	t_file_head		*head_file;
 	t_file			*folders;
 

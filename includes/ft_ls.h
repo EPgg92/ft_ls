@@ -75,6 +75,7 @@ struct		s_file_head
 	int			opts;
 	int			print_foldname;
 	int			window_width;
+	int			file_printed;
 	int 		files_number;
 	t_file		*arg_fold;
 	t_file		*work_list;
@@ -91,6 +92,7 @@ int			free_file_node(t_file **folder, int status);
 int			free_folder(t_file **folder, int status);
 int			create_tfile(char *parent, char *path, t_file **node);
 int			push_file(t_file **folder, char *parent_dir, char *path);
+void		format_all_date(int options, t_file *file_list);
 
 t_file_head	*t_file_head_initialisation(void);
 
@@ -139,6 +141,7 @@ void		l_print(t_file_head *);
 void		basic_print(t_file_head *);
 void		one_print(t_file_head *);
 void		o_print(t_file_head *);
-int		select_print(t_file_head *head, char *folder);
+void		m_print(t_file_head *);
+int			select_print(t_file_head *head, char *folder);
 
 #endif

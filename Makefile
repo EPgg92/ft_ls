@@ -31,7 +31,9 @@ SRCS = ls_parsing.c \
 	   t_file_head_utils.c \
 	   display_process.c \
 	   modify_filename.c \
-	   reverse_files.c
+	   reverse_files.c \
+	   date_format.c \
+	   printing_functions.c \
 
 ifeq ($(filter $(MAKECMDGOALS), simon enzo),)
 SRCS += main.c

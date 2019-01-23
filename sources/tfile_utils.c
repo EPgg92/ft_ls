@@ -158,8 +158,10 @@ int		create_tfile(char *parent, char *path, t_file **node)
 	if (!((*node)->info = (struct stat*)malloc(sizeof(struct stat))))
 		return (free_file_node(node, -1));
 	error *= lstat((*node)->path, (*node)->info) == 0 ? 1 : 0;
-	(*node)->pw_name = (getpwuid((*node)->info->st_uid))->pw_name;
-	(*node)->gr_name = (getgrgid((*node)->info->st_gid))->gr_name;
+	(*node)->pw_name = ft_strdup(getpwuid((*node)->info->st_uid)->pw_name);
+	(*node)->gr_name = ft_strdup(getgrgid((*node)->info->st_gid)->gr_name);
+	if (!(*node)->pw_name || !(*node)->pw_name)
+		error = 0;
 	(*node)->modification_time = NULL;
 	ft_bzero((*node)->symbolic_link, PATH_MAX);
 	ft_bzero((*node)->right, RIGHT_LEN);

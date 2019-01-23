@@ -6,7 +6,7 @@
 #    By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/23 00:14:18 by epoggio     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/23 16:28:57 by simrossi    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -94,6 +94,7 @@ SRCS = ft_atoi.c \
 	   ft_strdel.c \
 	   free_str_array.c \
 	   ft_strclear.c \
+	   ft_strset.c \
 	   ft_strdel_out.c \
 	   ft_strdup.c \
 	   ft_duparray.c \

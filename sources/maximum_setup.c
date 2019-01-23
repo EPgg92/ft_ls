@@ -46,7 +46,7 @@ void	set_maximum_info(t_file_head *head_file)
 		if (tmp_len > head_file->len_symlink)
 			head_file->len_symlink = tmp_len;
 		tmp_len = ft_strlen(file_lst->pw_name);
-		if (tmp_len > head_file->len_symlink)
+		if (tmp_len > head_file->len_user)
 			head_file->len_user = tmp_len;
 		tmp_len = ft_strlen(file_lst->gr_name);
 		if (tmp_len > head_file->len_group)

@@ -1,30 +1,37 @@
 #include "ft_ls.h"
 // Format : "%s %xd %xs %xs %xd %s" + file
+#define SPACE_OPT	0b10
+#define ALIGN_OPT	0b1
+#define NO_OPT		0b0
 
-static char	*field_formating(int value, char specifier)
+static char	*field_formating(int value, char specifier, int options)
 {
 	char	*value_str;
 	char	*format;
 	int		nbr_len;
+	int		alloc_size;
 
 	if (!(value_str = ft_itoa(value)))
 		return (NULL);
+	alloc_size = options & ALIGN_OPT ? 4 : 3;
 	nbr_len = ft_strlen(value_str);
-	if (!(format = (char *)malloc(sizeof(char) * (nbr_len + 3))))
+	if (!(format = (char *)malloc(sizeof(char) * (nbr_len + alloc_size))))
 		return (NULL);
 	format[0] = '%';
-	ft_strcpy(format + 1, value_str);
-	format[1 + nbr_len] = specifier;
-	format[2 + nbr_len] = '\0';
+	if (options & ALIGN_OPT)
+		format[1] = '-';
+	ft_strcpy(format + 1 + ((options & ALIGN_OPT) != 0), value_str);
+	format[1 + nbr_len + ((options & ALIGN_OPT) != 0)] = specifier;
+	format[2 + nbr_len + ((options & ALIGN_OPT) != 0)] = '\0';
 	return (format);
 }
 
-static char	*add_field(char **old_format, int value, char specifier, int space)
+static char	*add_field(char **old_format, int value, char specifier, int options)
 {
 	char	*filled_field;
 	char	*space_str;
 
-	if (!(filled_field = field_formating(value, specifier)))
+	if (!(filled_field = field_formating(value, specifier, options)))
 	{
 		ft_strdel(old_format);
 		return (NULL);
@@ -32,7 +39,7 @@ static char	*add_field(char **old_format, int value, char specifier, int space)
 	if (!(filled_field = ft_fstrjoin(old_format, &filled_field, 1, 1)))
 		return (NULL);
 	space_str = " ";
-	if (space)
+	if (options & SPACE_OPT)
 		return (ft_fstrjoin(&filled_field, &space_str, 1, 0));
 	return (filled_field);
 }
@@ -44,16 +51,16 @@ static char	*long_format(t_file_head *head, char *curr_format)
 
 	if (!(additional_str = ft_strdup("%s ")))
 		return (NULL);
-	if (!(additional_str = add_field(&additional_str, head->len_symlink, 'd', 1)))
+	if (!(additional_str = add_field(&additional_str, head->len_symlink, 'd', SPACE_OPT)))
 		return (NULL);
-	if (!(additional_str = add_field(&additional_str, head->len_user, 's', 1)))
+	if (!(additional_str = add_field(&additional_str, head->len_user, 's', SPACE_OPT | ALIGN_OPT)))
 		return (NULL);
-	if (!(additional_str = add_field(&additional_str, head->len_group, 's', 1)))
+	if (!(additional_str = add_field(&additional_str, head->len_group, 's', SPACE_OPT | ALIGN_OPT)))
 		return (NULL);
-	if (!(additional_str = add_field(&additional_str, head->len_size, 'd', 1)))
+	if (!(additional_str = add_field(&additional_str, head->len_size, 'd', SPACE_OPT )))
 		return (NULL);
 	tmp_str = "%s ";
-	if (!(additional_str = ft_fstrjoin(&additional_str, &tmp_str, 1, 0)))
+	if (!(additional_str = ft_fstrjoin(&additional_str, &tmp_str, 1, NO_OPT)))
 		return (NULL);
 	return (ft_fstrjoin(&additional_str, &curr_format, 1, 0));
 }
@@ -81,7 +88,7 @@ static char		*format_filebase(t_file_head *head_file)
 		head_file->opts & M_MIN)
 		return (ft_strdup("%s"));
 	else
-		return (field_formating(head_file->len_filename, 's'));
+		return (field_formating(head_file->len_filename, 's', NO_OPT));
 }
 
 char		*get_printing_pattern(t_file_head *head_file)
