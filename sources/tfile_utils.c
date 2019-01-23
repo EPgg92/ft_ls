@@ -55,6 +55,7 @@ int		free_file_node(t_file **folder, int status)
 	free((*folder)->pw_name);
 	free((*folder)->gr_name);
 	free((*folder)->modification_time);
+	free((*folder)->symbolic_link);
 	free(*folder);
 	*folder = NULL;
 	return (status);
@@ -83,6 +84,7 @@ static void set_null_tfile(t_file **node)
 	(*node)->modification_time = NULL;
 	(*node)->next = NULL;
 	(*node)->file_len = 0;
+	(*node)->symbolic_link = NULL;
 }
 
 void mode_right_setup(t_file **node, char ftype, char right_0)
