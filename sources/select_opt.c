@@ -1,33 +1,42 @@
 #include "ft_ls.h"
 
 
-int format_date(int active_opt, t_file *folder)
+void 	format_date(int active_opt, t_file *folder)
 {
 	time_t	date;
 	char	*str_date;
 
-	if (active_opt & T_MIN)
-		date = folder->info->st_mtimespec.tv_sec;
-	else if (active_opt & U_MAJ)
+	date = 0;
+	if (active_opt & U_MAJ)
 		date = folder->info->st_birthtimespec.tv_sec;
 	else if (active_opt & U_MIN)
 		date = folder->info->st_atimespec.tv_sec;
-	str_date = ctime(&date);
+	else
+		date = folder->info->st_mtimespec.tv_sec;
+	str_date = ft_strdup(ctime(&date));
+		ft_printf("date : %s\n", str_date);
 	ft_strreplace(str_date, '\n', '\0');
+	ft_printf("time : %d\n", date);
 	if (1) // C faux
 		ft_memmove(str_date + 16 , str_date + 19 , 4);
 	else
 		str_date[16] = '\0';
 	folder->modification_time = str_date;
-	return(0);
-
 }
 
+void 		format_all_date(int options, t_file *file_list)
+{
+	while (file_list)
+	{
+		format_date(options, file_list);
+		file_list = file_list->next;
+	}
+}
 
 
 void	select_sort(int active_opt, t_file **folder)
 {
-	format_date(active_opt, *folder);
+	format_all_date(active_opt, *folder);
 	if (U_MIN & active_opt)
 		insert_sort(folder, access_compare);
 	else if (U_MAJ & active_opt)
