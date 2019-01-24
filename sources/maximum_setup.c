@@ -29,7 +29,7 @@ static void		reset_maximum(t_file_head *head_file)
 ** Count also the total number of blocks.
 */
 
-#define UPDATE_LEN(ref, new) ref = new > ref ? new : ref
+#define UPDATE_LEN(ref, new) ref = new > ref ? new : ref // go func 
 
 void			set_maximum_info(t_file_head *head_file)
 {

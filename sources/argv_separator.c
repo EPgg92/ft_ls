@@ -66,9 +66,11 @@ int					split_argv_filetype(char **files, int options, \
 {
 	int		index;
 	int		type_error;
+	int		total_files;
 
 	index = 0;
 	*folder_list = NULL;
+	total_files = ft_arraylen(files);
 	sort_str_array(files, ft_strcmp);
 	while (files[index])
 	{
@@ -83,5 +85,5 @@ int					split_argv_filetype(char **files, int options, \
 			delete_string(files + index);
 		}
 	}
-	return (1);
+	return (total_files);
 }

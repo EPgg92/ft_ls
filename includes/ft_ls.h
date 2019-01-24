@@ -99,7 +99,7 @@ void		free_file_head(t_file_head **head_file);
 ** Informations getter
 */
 
-void		format_all_date(int options, t_file *file_list);
+int			format_all_date(int options, t_file *file_list);
 void		parse_mode(t_file *node);
 char		*join_path(char *folder, char *file);
 
@@ -132,7 +132,7 @@ void 		reverse_files(t_file **files);
 */
 
 char		*get_printing_pattern(t_file_head *head_file);
-void		select_sort(int active_opt, t_file **folder);
+int			select_sort(int active_opt, t_file **folder);
 void		set_maximum_info(t_file_head *head_file);
 int			set_file_link(t_file *file_node, int options);
 int			process_manager(char **file_or_dir, t_file_head *head, int type);

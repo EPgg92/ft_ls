@@ -55,6 +55,8 @@ int				parse_folder(char *folder, t_file **folder_list, int active_opt)
 		else if (push_file(folder_list, folder, sub_dir->d_name) == -1)
 			return (free_folder(folder_list, -1));
 	}
+	if (linked_fold)
+		ft_strdel(&linked_fold);
 	closedir(dir);
 	return (1);
 }

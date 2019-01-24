@@ -152,6 +152,8 @@ char		*get_printing_pattern(t_file_head *head_file)
 		return (NULL);
 	if (head_file->opts & L_MIN)
 		format = long_format(head_file, format);
+	if (!format)
+		return (NULL);
 	if (head_file->opts & O_MIN)
 		format = o_long_format(format);
 	head_file->print_pattern = format;

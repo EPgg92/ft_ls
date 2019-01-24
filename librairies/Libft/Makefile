@@ -6,7 +6,7 @@
 #    By: simrossi <simrossi@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 08:24:35 by simrossi     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/23 16:28:57 by simrossi    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/24 18:09:24 by epoggio     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -148,6 +148,7 @@ SRCS = ft_atoi.c \
 	   get_next_line.c \
 	   create_tab.c \
 	   find_index.c \
+	   ft_arraylen.c \
 	   $(SRCS_PRINTF)
 
 DEPS_MAKEFILE = $(SRCS:%.c=%.d)

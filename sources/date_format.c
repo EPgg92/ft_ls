@@ -45,7 +45,7 @@ static void			keep_year(char *date)
 ** newer than six month to set the year if needed.
 */
 
-static void			format_date(int active_opt, t_file *folder)
+static int			format_date(int active_opt, t_file *folder)
 {
 	time_t	date;
 	char	*str_date;
@@ -58,6 +58,8 @@ static void			format_date(int active_opt, t_file *folder)
 	else
 		date = folder->info->st_mtimespec.tv_sec;
 	str_date = ft_strdup(ctime(&date));
+	if (!str_date)
+		return (-1);
 	ft_strreplace(str_date, '\n', '\0');
 	if (six_month_older(date))
 		keep_year(str_date);
@@ -65,6 +67,7 @@ static void			format_date(int active_opt, t_file *folder)
 		str_date[16] = '\0';
 	ft_strmove(str_date, str_date + 4);
 	folder->modification_time = str_date;
+	return (1);
 }
 
 /*
@@ -73,11 +76,13 @@ static void			format_date(int active_opt, t_file *folder)
 ** Loop over each t_file element to format his date.
 */
 
-void				format_all_date(int options, t_file *file_list)
+int				format_all_date(int options, t_file *file_list)
 {
 	while (file_list)
 	{
-		format_date(options, file_list);
+		if (format_date(options, file_list) == -1)
+			return (-1);
 		file_list = file_list->next;
 	}
+	return (1);
 }

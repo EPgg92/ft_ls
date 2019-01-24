@@ -24,7 +24,7 @@ int		main(int argc, char **argv)
 		if (process_manager(files, head_file, FILES) == -1)
 			return (free_ls_utils(&head_file, &files, -1));
 	folders = head_file->arg_fold;
-	if (*files || t_file_list_len(head_file->arg_fold) >= 2)
+	if (*files || argc > 1)
 		head_file->print_foldname = 1;
 	while (folders)
 	{

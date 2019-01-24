@@ -8,9 +8,10 @@
 ** Reverse the list if asked.
 */
 
-void	select_sort(int active_opt, t_file **folder)
+int		select_sort(int active_opt, t_file **folder)
 {
-	format_all_date(active_opt, *folder);
+	if (format_all_date(active_opt, *folder) == -1)
+		return (-1);
 	if (U_MIN & active_opt)
 		insert_sort(folder, access_compare);
 	else if (U_MAJ & active_opt)
@@ -23,6 +24,7 @@ void	select_sort(int active_opt, t_file **folder)
 		insert_sort(folder, ascii_compare);
 	if (R_MIN & active_opt)
 		reverse_files(folder);
+	return (1);
 }
 
 /*
