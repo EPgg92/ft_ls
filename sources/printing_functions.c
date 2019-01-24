@@ -1,55 +1,12 @@
 #include "ft_ls.h"
 
 /*
-** l_print:
-**
-** Using ft_printf for -l option.
-*/
-
-void l_print(t_file_head *head_file)
-{
-	t_file	*file_list;
-
-	file_list = head_file->work_list;
-	ft_printf("total %d\n", head_file->block_number);
-	while (file_list)
-	{
-		ft_printf(head_file->print_pattern, file_list->right, file_list->info->st_nlink,
-		file_list->pw_name, file_list->gr_name, file_list->info->st_size,
-		file_list->modification_time, file_list->filename);
-		file_list = file_list->next;
-		ft_printf("\n");
-	}
-}
-
-/*
-** l_print:
-**
-** Using ft_printf for -o option.
-*/
-
-void o_print(t_file_head *head_file)
-{
-	t_file	*file_list;
-
-	file_list = head_file->work_list;
-	while (file_list)
-	{
-		ft_printf(head_file->print_pattern, file_list->right, file_list->info->st_nlink,
-		file_list->pw_name, file_list->info->st_size,
-		file_list->modification_time, file_list->filename);
-		file_list = file_list->next;
-		ft_printf("\n");
-	}
-}
-
-/*
-** l_print:
+** one_print:
 **
 ** Using ft_printf for -1 option.
 */
 
-void	one_print(t_file_head *head_file)
+void		one_print(t_file_head *head_file)
 {
 	t_file	*file_list;
 
@@ -63,15 +20,15 @@ void	one_print(t_file_head *head_file)
 }
 
 /*
-** l_print:
+** m_print:
 **
 ** Using ft_printf for -m option.
 */
 
-void 		m_print(t_file_head *head_file)
+void		m_print(t_file_head *head_file)
 {
 	t_file		*file_list;
-	int 		printed;
+	int			printed;
 
 	file_list = head_file->work_list;
 	printed = 0;
@@ -89,6 +46,67 @@ void 		m_print(t_file_head *head_file)
 			else
 				printed += ft_printf("%s, ", file_list->filename);
 		}
+		file_list = file_list->next;
+	}
+}
+
+/*
+** print_each:
+**
+** In a chained list of t_file, print the filename of an element each
+** range element.
+*/
+
+static void	print_each(t_file *file_list, char *pattern, int range)
+{
+	int index;
+
+	index = 0;
+	while (file_list)
+	{
+		if (index == 0)
+			ft_printf(pattern, file_list->filename);
+		index++;
+		if (index == range)
+		{
+			ft_printf(" ");
+			index = 0;
+		}
+		file_list = file_list->next;
+	}
+}
+
+/*
+** basic_print:
+**
+** Printing setted up by default, column printing.
+*/
+
+void		basic_print(t_file_head *head_file)
+{
+	int		term_width;
+	int		file_by_line;
+	int		nb_col;
+	t_file	*file_list;
+	int		index;
+
+	if (head_file->files_number == 0 || (term_width = get_window_width()) == -1)
+		return ;
+	file_by_line = term_width / (head_file->len_filename + 1);
+	if (file_by_line == 0)
+	{
+		one_print(head_file);
+		return ;
+	}
+	nb_col = head_file->files_number / file_by_line;
+	if (head_file->files_number % file_by_line != 0)
+		nb_col++;
+	file_list = head_file->work_list;
+	index = 0;
+	while (index++ < nb_col)
+	{
+		print_each(file_list, head_file->print_pattern, nb_col);
+		ft_printf("\n");
 		file_list = file_list->next;
 	}
 }

@@ -25,7 +25,7 @@ static int			six_month_older(time_t file_time)
 ** Remove the hour of the ctime return by the year.
 */
 
-static void				keep_year(char *date)
+static void			keep_year(char *date)
 {
 	char	*year;
 	char	*hour;
@@ -45,7 +45,7 @@ static void				keep_year(char *date)
 ** newer than six month to set the year if needed.
 */
 
-static void 	format_date(int active_opt, t_file *folder)
+static void			format_date(int active_opt, t_file *folder)
 {
 	time_t	date;
 	char	*str_date;
@@ -59,7 +59,7 @@ static void 	format_date(int active_opt, t_file *folder)
 		date = folder->info->st_mtimespec.tv_sec;
 	str_date = ft_strdup(ctime(&date));
 	ft_strreplace(str_date, '\n', '\0');
-	if (six_month_older(date)) // C faux
+	if (six_month_older(date))
 		keep_year(str_date);
 	else
 		str_date[16] = '\0';
@@ -73,7 +73,7 @@ static void 	format_date(int active_opt, t_file *folder)
 ** Loop over each t_file element to format his date.
 */
 
-void 		format_all_date(int options, t_file *file_list)
+void				format_all_date(int options, t_file *file_list)
 {
 	while (file_list)
 	{

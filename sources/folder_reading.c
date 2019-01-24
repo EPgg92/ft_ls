@@ -1,5 +1,17 @@
 #include "ft_ls.h"
 
+/*
+** get_link:
+**
+** If a the given filename is a symbolic link, return the folder pointed
+** by this symbolic link.
+**
+** return value:
+** - -1 if an error occur.
+** - 0 if the element isn't a symbolic link
+** - 1 if the element is a symbolic link
+*/
+
 static int		get_link(char *filename, char **name_link)
 {
 	struct stat		info;
@@ -17,16 +29,11 @@ static int		get_link(char *filename, char **name_link)
 	return (0);
 }
 
-void	print_folder(t_file *folder)
-{
-
-	while (folder)
-	{
-		ft_printf("%s date : %s", folder->path, \
-				ctime(&folder->info->st_mtimespec.tv_sec));
-		folder = folder->next;
-	}
-}
+/*
+** parse_folder:
+**
+** From a folder, create a t_file chained list. Follow symbolic link.
+*/
 
 int		parse_folder(char *folder, t_file **folder_list, int active_opt)
 {
@@ -55,7 +62,7 @@ int		parse_folder(char *folder, t_file **folder_list, int active_opt)
 /*
 ** stock_file_list:
 **
-** From a list of file, create a t_file list.
+** From a list of file, create a t_file chained list.
 */
 
 int			stock_file_list(char **files, t_file **list_file)

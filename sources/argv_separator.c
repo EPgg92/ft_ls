@@ -18,7 +18,7 @@ static int			is_folder(char *filename, int options)
 	int				error;
 
 	error = options & L_MIN ? lstat(filename, &file_info) : \
-		  					stat(filename, &file_info);
+								stat(filename, &file_info);
 	if (error == -1)
 	{
 		ft_printf("ls: ");
@@ -61,7 +61,8 @@ static void			delete_string(char **string_list)
 ** - 1 if the operation succeed.
 */
 
-int			split_argv_filetype(char **files, int options, t_file **folder_list)
+int					split_argv_filetype(char **files, int options, \
+										t_file **folder_list)
 {
 	int		index;
 	int		type_error;

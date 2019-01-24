@@ -1,46 +1,5 @@
 #include "ft_ls.h"
 
-int			t_file_list_len(t_file *file_list)
-{
-	int		index;
-
-	index = 0;
-	while (file_list)
-	{
-		file_list = file_list->next;
-		index++;
-	}
-	return (index);
-}
-
-/*
-** relative_path:
-**
-** create relative path of file relatively of folder.
-**
-** return value:
-** NULL return if malloc fails.
-** string containing relative path if success.
-*/
-
-char		*relative_path(char *folder, char *file)
-{
-	char	*slash;
-	int		allocate;
-
-	if (folder == NULL || ft_strequ(".", file) || ft_strequ("..", file))
-		return (ft_strdup(file));
-	allocate = 0;
-	slash = ft_strrchr(folder, '/');
-	if (slash == NULL || *(slash + 1) != '\0')
-	{
-		allocate = 1;
-		if (!(folder = ft_strjoin(folder, "/")))
-			return (NULL);
-	}
-	return (ft_fstrjoin(&folder, &file, allocate, 0));
-}
-
 /*
 ** free_file_node:
 **
@@ -49,13 +8,13 @@ char		*relative_path(char *folder, char *file)
 
 int		free_file_node(t_file **folder, int status)
 {
-	free((*folder)->path);
-	free((*folder)->filename);
+	ft_strdel(&(*folder)->path);
+	ft_strdel(&(*folder)->filename);
 	free((*folder)->info);
-	free((*folder)->pw_name);
-	free((*folder)->gr_name);
-	free((*folder)->modification_time);
-	free((*folder)->symbolic_link);
+	(*folder)->info = NULL;
+	ft_strdel(&(*folder)->pw_name);
+	ft_strdel(&(*folder)->gr_name);
+	ft_strdel(&(*folder)->modification_time);
 	free(*folder);
 	*folder = NULL;
 	return (status);
@@ -69,80 +28,29 @@ int		free_file_node(t_file **folder, int status)
 
 int		free_folder(t_file **folder, int status)
 {
+	if (!*folder)
+		return (status);
 	if ((*folder)->next)
 		free_folder(&(*folder)->next, status);
 	return (free_file_node(folder, status));
 }
 
-static void set_null_tfile(t_file **node)
+/*
+** set_null_tfile:
+**
+** Set each attribute of a t_file to NULL or 0.
+*/
+
+static void set_null_tfile(t_file *node)
 {
-	(*node)->info = NULL;
-	(*node)->path = NULL;
-	(*node)->filename = NULL;
-	(*node)->pw_name = NULL;
-	(*node)->gr_name = NULL;
-	(*node)->modification_time = NULL;
-	(*node)->next = NULL;
-	(*node)->file_len = 0;
-	(*node)->symbolic_link = NULL;
-}
-
-void mode_right_setup(t_file **node, char ftype, char right_0)
-{
-	mode_t	st_mode;
-	char	*right;
-
-	st_mode = (*node)->info->st_mode;
-	right = (*node)->right;
-	(*node)->ftype = ftype;
-	right[0] = right_0;
-	right[1] = (st_mode & S_IRUSR) ? 'r' : '-';
-	right[2] = (st_mode & S_IWUSR) ? 'w' : '-';
-	right[3] = (st_mode & S_IXUSR) ? 'x' : '-';
-	if (right[3] == 'x')
-		right[3] = st_mode & S_ISUID ? 's' : 'x';
-	else
-		right[3] = (st_mode & S_ISUID && right[3] == '-') ? 'S' : '-';
-	right[4] = (st_mode & S_IRGRP) ? 'r' : '-';
-	right[5] = (st_mode & S_IWGRP) ? 'w' : '-';
-	right[6] = (st_mode & S_IXGRP) ? 'x' : '-';
-	if (right[6] == 'x')
-		right[6] = st_mode & S_ISGID ? 's' : 'x';
-	else
-		right[6] = st_mode & S_ISGID ? 'S' : '-';
-	right[7] = (st_mode & S_IROTH) ? 'r' : '-';
-	right[8] = (st_mode & S_IWOTH) ? 'w' : '-';
-	right[9] = (st_mode & S_IXOTH) ? 'x' : '-';
-	if (right[9] == 'x')
-		right[9] = st_mode & S_ISVTX ? 't' : 'x';
-	else
-		right[9] = st_mode & S_ISVTX ? 'T' : '-';
-	right[10] = ' '; //ACL XATRR
-}
-
-void mode(t_file **node)
-{
-	mode_t   st_mode;
-
-	st_mode = (*node)->info->st_mode;
-	if (st_mode & S_IXUSR && S_ISREG(st_mode))
-		mode_right_setup(node, '*', '-');
-	else if (S_ISREG(st_mode))
-		mode_right_setup(node, ' ', '-');
-	else if (S_ISDIR(st_mode))
-		mode_right_setup(node, '/', 'd');
-	else if (S_ISLNK(st_mode))
-		mode_right_setup(node, '@', 'l');
-	else if (S_ISCHR(st_mode))
-		mode_right_setup(node, ' ', 'c');
-	else if (S_ISBLK(st_mode))
-		mode_right_setup(node, ' ', 'b');
-	else if (S_ISFIFO(st_mode))
-		mode_right_setup(node, '|', 'p');
-	else if (S_ISSOCK(st_mode))
-		mode_right_setup(node, '=', 's');
-	else if (st_mode & S_IFWHT)
-		mode_right_setup(node, '%', 'w');
+	node->info = NULL;
+	node->path = NULL;
+	node->filename = NULL;
+	node->pw_name = NULL;
+	node->gr_name = NULL;
+	node->modification_time = NULL;
+	node->next = NULL;
+	node->file_len = 0;
 }
 
 /*
@@ -163,8 +71,8 @@ int		create_tfile(char *parent, char *path, t_file **node)
 	error = 1;
 	if (!(*node = (t_file *)malloc(sizeof(t_file))))
 		return (-1);
-	set_null_tfile(node);
-	error *= ((*node)->path = relative_path(parent, path)) != NULL ? 1 : 0;
+	set_null_tfile(*node);
+	error *= ((*node)->path = join_path(parent, path)) != NULL ? 1 : 0;
 	error *= ((*node)->filename = ft_strdup(path)) != NULL ? 1 : 0;
 	if (!((*node)->info = (struct stat*)malloc(sizeof(struct stat))))
 		return (free_file_node(node, -1));
@@ -177,9 +85,7 @@ int		create_tfile(char *parent, char *path, t_file **node)
 	ft_bzero((*node)->symbolic_link, PATH_MAX);
 	ft_bzero((*node)->right, RIGHT_LEN);
 	ft_memset((*node)->right, (int)'-', RIGHT_LEN-2);
-	mode(node);
-	if (S_ISLNK((*node)->info->st_mode))
-		readlink((*node)->path, (*node)->symbolic_link, PATH_MAX);
+	parse_mode(node);
 	return (error == 1 ? 1: free_file_node(node, -1));
 }
 

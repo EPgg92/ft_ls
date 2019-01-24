@@ -1,6 +1,12 @@
 #include "ft_ls.h"
 
-void reverse_files(t_file **files)
+/*
+** reverse_files:
+**
+** Reverse a chaines list of t_files
+*/
+
+void	reverse_files(t_file **files)
 {
 	t_file *current;
 	t_file *next;
@@ -9,7 +15,7 @@ void reverse_files(t_file **files)
 	next = NULL;
 	prev = NULL;
 	current = *files;
-	while (!current)
+	while (current)
 	{
 		next = current->next;
 		current->next = prev;

@@ -12,8 +12,8 @@
 
 int		modif_compare(t_file *file_1, t_file *file_2)
 {
-	return (file_1->info->st_mtimespec.tv_sec - \
-			file_2->info->st_mtimespec.tv_sec);
+	return (file_2->info->st_mtimespec.tv_sec - \
+			file_1->info->st_mtimespec.tv_sec);
 }
 
 /*

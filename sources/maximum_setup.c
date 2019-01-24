@@ -6,10 +6,10 @@
 ** Set each attribute used as maximum of the t_file_head to zero.
 */
 
-static void	reset_maximum(t_file_head *head_file)
+static void		reset_maximum(t_file_head *head_file)
 {
 	head_file->len_filename = 0;
-	head_file->len_symlink= 0;
+	head_file->len_symlink = 0;
 	head_file->len_user = 0;
 	head_file->len_group = 0;
 	head_file->len_size = 0;
@@ -28,7 +28,10 @@ static void	reset_maximum(t_file_head *head_file)
 **			 - file size max len
 ** Count also the total number of blocks.
 */
-void	set_maximum_info(t_file_head *head_file)
+
+#define UPDATE_LEN(ref, new) ref = new > ref ? new : ref
+
+void			set_maximum_info(t_file_head *head_file)
 {
 	t_file	*file_lst;
 	int		tmp_len;
@@ -38,23 +41,18 @@ void	set_maximum_info(t_file_head *head_file)
 	while (file_lst)
 	{
 		head_file->files_number++;
-		tmp_len = ft_strlen(file_lst->filename);
-		file_lst->file_len = tmp_len;
-		if (tmp_len > head_file->len_filename)
-			head_file->len_filename = tmp_len;
+		file_lst->file_len = ft_strlen(file_lst->filename);
+		UPDATE_LEN(head_file->len_filename, file_lst->file_len);
 		tmp_len = ft_unbrlen(file_lst->info->st_nlink);
-		if (tmp_len > head_file->len_symlink)
-			head_file->len_symlink = tmp_len;
+		UPDATE_LEN(head_file->len_symlink, tmp_len);
 		tmp_len = ft_strlen(file_lst->pw_name);
-		if (tmp_len > head_file->len_user)
-			head_file->len_user = tmp_len;
+		UPDATE_LEN(head_file->len_user, tmp_len);
 		tmp_len = ft_strlen(file_lst->gr_name);
-		if (tmp_len > head_file->len_group)
-			head_file->len_group = tmp_len;
+		UPDATE_LEN(head_file->len_group, tmp_len);
 		tmp_len = ft_unbrlen(file_lst->info->st_size);
-		if (tmp_len > head_file->len_size)
-			head_file->len_size = tmp_len;
+		UPDATE_LEN(head_file->len_size, tmp_len);
 		head_file->block_number += file_lst->info->st_blocks;
+		set_file_link(file_lst, head_file->opts);
 		file_lst = file_lst->next;
 	}
 }
