@@ -42,6 +42,26 @@ static void	recursive_folders(t_file_head *head_file)
 }
 
 /*
+** show_error:
+**
+** Function called to display an error message with errno when a folder can't
+** be read.
+*/
+
+int			show_error(t_file_head *head_file, char *directory, int status)
+{
+	if (head_file->file_printed >= 1)
+		ft_printf("\n");
+	if (head_file->print_foldname)
+		ft_printf("%s:\n", directory);
+	ft_putstr_fd("ft_ls: ", STDERR_FILENO);
+	perror(directory);
+	head_file->file_printed++;
+	return (status);
+}
+
+
+/*
 ** process_manager:
 **
 ** Function to perform the parsing, the sorting and the printing of a chained
@@ -69,6 +89,8 @@ int			process_manager(char **file_or_dir, t_file_head *head_file, \
 		creation = stock_file_list(file_or_dir, &head_file->work_list);
 	if (creation == -1)
 		return (-1);
+	else if (creation == -2)
+		return (show_error(head_file, *file_or_dir, 0));
 	set_maximum_info(head_file);
 	if (!get_printing_pattern(head_file))
 		return (-1);

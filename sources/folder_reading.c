@@ -45,9 +45,9 @@ int				parse_folder(char *folder, t_file **folder_list, int active_opt)
 	linked_fold = NULL;
 	link = 0;
 	if ((link = get_link(folder, &linked_fold)) == -1)
-		return (-1);
+		return (-2);
 	if (!(dir = opendir(link ? linked_fold : folder)))
-		return (-1);
+		return (-2);
 	while ((sub_dir = readdir(dir)))
 	{
 		if ((active_opt & A_MIN) == 0 && sub_dir->d_name[0] == '.')

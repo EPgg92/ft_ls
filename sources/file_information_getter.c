@@ -31,7 +31,7 @@ int				set_file_link(t_file *file_node, int options)
 /*
 ** extended_permission:
 **
-** Set character for SUID, SGID and sticky bit
+** Set character for SUID, SGID and sticky bit in the t_file->right string.
 */
 
 static void		extended_permission(t_file *node)

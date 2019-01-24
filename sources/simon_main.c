@@ -15,20 +15,21 @@ int		main(int argc, char **argv)
 	if (!(head_file = t_file_head_initialisation()))
 		return (-1);
 	files = NULL;
-	head_file->opts = parse_argv_option(argc, argv, &files);
-	if (head_file->opts == -1)
+	if ((head_file->opts = parse_argv_option(argc, argv, &files)) == -1)
 		return (free_ls_utils(&head_file, &files, -1));
 	if ((argc = split_argv_filetype(files, head_file->opts, \
 					&head_file->arg_fold)) == -1)
 		return (free_ls_utils(&head_file, &files, -1));
 	if (*files)
-		process_manager(files, head_file, FILES);
+		if (process_manager(files, head_file, FILES) == -1)
+			return (free_ls_utils(&head_file, &files, -1));
 	folders = head_file->arg_fold;
 	if (*files || t_file_list_len(head_file->arg_fold) >= 2)
 		head_file->print_foldname = 1;
 	while (folders)
 	{
-		process_manager(&folders->filename, head_file, FOLDER);
+		if (process_manager(&folders->filename, head_file, FOLDER) == -1)
+			return (free_ls_utils(&head_file, &files, -1));
 		folders = folders->next;
 	}
 	return (free_ls_utils(&head_file, &files, 0));
