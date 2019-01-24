@@ -6,7 +6,7 @@
 ** Get the size of a t_file * chained list.
 */
 
-int			t_file_list_len(t_file *file_list)
+int				t_file_list_len(t_file *file_list)
 {
 	int		index;
 

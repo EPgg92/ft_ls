@@ -6,7 +6,7 @@
 ** Free each element of a single t_file element.
 */
 
-int		free_file_node(t_file **folder, int status)
+int				free_file_node(t_file **folder, int status)
 {
 	ft_strdel(&(*folder)->path);
 	ft_strdel(&(*folder)->filename);
@@ -26,7 +26,7 @@ int		free_file_node(t_file **folder, int status)
 ** Free an entire chained list of t_file.
 */
 
-int		free_folder(t_file **folder, int status)
+int				free_folder(t_file **folder, int status)
 {
 	if (!*folder)
 		return (status);
@@ -41,7 +41,7 @@ int		free_folder(t_file **folder, int status)
 ** Set each attribute of a t_file to NULL or 0.
 */
 
-static void set_null_tfile(t_file *node)
+static void		set_null_tfile(t_file *node)
 {
 	node->info = NULL;
 	node->path = NULL;
@@ -64,7 +64,7 @@ static void set_null_tfile(t_file *node)
 ** - 1 if the allocation succeed.
 */
 
-int		create_tfile(char *parent, char *path, t_file **node)
+int				create_tfile(char *parent, char *path, t_file **node)
 {
 	int		error;
 
@@ -84,9 +84,9 @@ int		create_tfile(char *parent, char *path, t_file **node)
 	(*node)->modification_time = NULL;
 	ft_bzero((*node)->symbolic_link, PATH_MAX);
 	ft_bzero((*node)->right, RIGHT_LEN);
-	ft_memset((*node)->right, (int)'-', RIGHT_LEN-2);
-	parse_mode(node);
-	return (error == 1 ? 1: free_file_node(node, -1));
+	ft_memset((*node)->right, (int)'-', RIGHT_LEN - 2);
+	parse_mode(*node);
+	return (error == 1 ? 1 : free_file_node(node, -1));
 }
 
 /*
@@ -99,7 +99,7 @@ int		create_tfile(char *parent, char *path, t_file **node)
 ** - 1 if the allocation succeed.
 */
 
-int		push_file(t_file **folder, char *parent_dir, char *path)
+int				push_file(t_file **folder, char *parent_dir, char *path)
 {
 	if (!*folder)
 		return (create_tfile(parent_dir, path, folder));

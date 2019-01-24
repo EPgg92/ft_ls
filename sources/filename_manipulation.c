@@ -27,4 +27,3 @@ char		*join_path(char *folder, char *file)
 	}
 	return (ft_fstrjoin(&folder, &file, allocate, 0));
 }
-

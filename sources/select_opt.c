@@ -31,7 +31,7 @@ void	select_sort(int active_opt, t_file **folder)
 ** Return the terminal width.
 */
 
-int 			get_window_width(void)
+int		get_window_width(void)
 {
 	struct winsize w;
 
@@ -47,7 +47,7 @@ int 			get_window_width(void)
 ** on the t_file * list, display folder name if required.
 */
 
-void 	print_manager(t_file_head *head_file, print_mode prt_fct, char *folder)
+void	print_manager(t_file_head *head_file, print_mode prt_fct, char *folder)
 {
 	if (head_file->file_printed >= 1)
 		ft_printf("\n");

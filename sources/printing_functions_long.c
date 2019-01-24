@@ -50,4 +50,3 @@ void		o_print(t_file_head *head_file)
 		ft_printf("\n");
 	}
 }
-

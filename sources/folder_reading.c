@@ -35,7 +35,7 @@ static int		get_link(char *filename, char **name_link)
 ** From a folder, create a t_file chained list. Follow symbolic link.
 */
 
-int		parse_folder(char *folder, t_file **folder_list, int active_opt)
+int				parse_folder(char *folder, t_file **folder_list, int active_opt)
 {
 	struct dirent	*sub_dir;
 	DIR				*dir;
@@ -65,7 +65,7 @@ int		parse_folder(char *folder, t_file **folder_list, int active_opt)
 ** From a list of file, create a t_file chained list.
 */
 
-int			stock_file_list(char **files, t_file **list_file)
+int				stock_file_list(char **files, t_file **list_file)
 {
 	while (*files)
 	{

@@ -69,7 +69,6 @@ int		ascii_compare(t_file *file_1, t_file *file_2)
 ** difference between size of file_1 and size of file_2
 */
 
-
 int		size_compare(t_file *file_1, t_file *file_2)
 {
 	return (file_2->info->st_size - file_1->info->st_size);

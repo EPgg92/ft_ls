@@ -29,40 +29,55 @@ int				set_file_link(t_file *file_node, int options)
 }
 
 /*
+** extended_permission:
+**
+** Set character for SUID, SGID and sticky bit
+*/
+
+static void		extended_permission(t_file *node)
+{
+	mode_t	st_mode;
+
+	st_mode = node->info->st_mode;
+	if (node->right[3] == 'x')
+		node->right[3] = st_mode & S_ISUID ? 's' : 'x';
+	else
+		node->right[3] = (st_mode & S_ISUID && node->right[3] == '-') ? \
+																	'S' : '-';
+	if (node->right[6] == 'x')
+		node->right[6] = st_mode & S_ISGID ? 's' : 'x';
+	else
+		node->right[6] = st_mode & S_ISGID ? 'S' : '-';
+	if (node->right[9] == 'x')
+		node->right[9] = st_mode & S_ISVTX ? 't' : 'x';
+	else
+		node->right[9] = st_mode & S_ISVTX ? 'T' : '-';
+}
+
+/*
 ** right_setup:
 **
 ** Analyse for a t_file the value for each right type (User, group, other)
 ** to see what is active. Store this information in the t_file->right element.
 */
 
-static void		right_setup(t_file **node, char ftype, char right_0)
+static void		right_setup(t_file *node, char ftype, char right_0)
 {
 	mode_t	st_mode;
 
-	st_mode = (*node)->info->st_mode;
-	(*node)->ftype = ftype;
-	(*node)->right[0] = right_0;
-	(*node)->right[1] = (st_mode & S_IRUSR) ? 'r' : '-';
-	(*node)->right[2] = (st_mode & S_IWUSR) ? 'w' : '-';
-	(*node)->right[3] = (st_mode & S_IXUSR) ? 'x' : '-';
-	if ((*node)->right[3] == 'x')
-		(*node)->right[3] = st_mode & S_ISUID ? 's' : 'x';
-	else
-		(*node)->right[3] = (st_mode & S_ISUID && (*node)->right[3] == '-') ? 'S' : '-';
-	(*node)->right[4] = (st_mode & S_IRGRP) ? 'r' : '-';
-	(*node)->right[5] = (st_mode & S_IWGRP) ? 'w' : '-';
-	(*node)->right[6] = (st_mode & S_IXGRP) ? 'x' : '-';
-	if ((*node)->right[6] == 'x')
-		(*node)->right[6] = st_mode & S_ISGID ? 's' : 'x';
-	else
-		(*node)->right[6] = st_mode & S_ISGID ? 'S' : '-';
-	(*node)->right[7] = (st_mode & S_IROTH) ? 'r' : '-';
-	(*node)->right[8] = (st_mode & S_IWOTH) ? 'w' : '-';
-	(*node)->right[9] = (st_mode & S_IXOTH) ? 'x' : '-';
-	if ((*node)->right[9] == 'x')
-		(*node)->right[9] = st_mode & S_ISVTX ? 't' : 'x';
-	else
-		(*node)->right[9] = st_mode & S_ISVTX ? 'T' : '-';
+	st_mode = node->info->st_mode;
+	node->ftype = ftype;
+	node->right[0] = right_0;
+	node->right[1] = (st_mode & S_IRUSR) ? 'r' : '-';
+	node->right[2] = (st_mode & S_IWUSR) ? 'w' : '-';
+	node->right[3] = (st_mode & S_IXUSR) ? 'x' : '-';
+	node->right[4] = (st_mode & S_IRGRP) ? 'r' : '-';
+	node->right[5] = (st_mode & S_IWGRP) ? 'w' : '-';
+	node->right[6] = (st_mode & S_IXGRP) ? 'x' : '-';
+	node->right[7] = (st_mode & S_IROTH) ? 'r' : '-';
+	node->right[8] = (st_mode & S_IWOTH) ? 'w' : '-';
+	node->right[9] = (st_mode & S_IXOTH) ? 'x' : '-';
+	extended_permission(node);
 }
 
 /*
@@ -71,11 +86,11 @@ static void		right_setup(t_file **node, char ftype, char right_0)
 ** Used to store information related to the rights and the file type.
 */
 
-void			parse_mode(t_file **node)
+void			parse_mode(t_file *node)
 {
-	mode_t   st_mode;
+	mode_t		st_mode;
 
-	st_mode = (*node)->info->st_mode;
+	st_mode = node->info->st_mode;
 	if (st_mode & S_IXUSR && S_ISREG(st_mode))
 		right_setup(node, '*', '-');
 	else if (S_ISREG(st_mode))

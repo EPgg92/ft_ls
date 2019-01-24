@@ -100,7 +100,7 @@ void		free_file_head(t_file_head **head_file);
 */
 
 void		format_all_date(int options, t_file *file_list);
-void		parse_mode(t_file **node);
+void		parse_mode(t_file *node);
 char		*join_path(char *folder, char *file);
 
 /*
