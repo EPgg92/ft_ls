@@ -104,10 +104,8 @@ int			process_manager(char **file_or_dir, t_file_head *head_file, \
 	if (select_print(head_file, *file_or_dir) == -1)
 		return (free_folder(&head_file->work_list, -1));
 	if (head_file->opts & R_MAJ)
-	{
 		if (recursive_folders(head_file) == -1)
 			return (free_folder(&head_file->work_list, -1));
-	}
 	clean_process(head_file);
 	return (1);
 }

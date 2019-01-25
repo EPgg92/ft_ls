@@ -12,8 +12,6 @@ int		main(int argc, char **argv)
 	t_file_head		*head_file;
 	t_file			*folders;
 
-	if (argv)
-		;
 	if (!(head_file = t_file_head_initialisation()))
 		return (-1);
 	files = NULL;

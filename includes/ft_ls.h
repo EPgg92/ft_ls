@@ -46,7 +46,8 @@
 # define FOLDER			1
 # define FILES			2
 
-typedef struct s_file t_file;
+typedef struct s_file	t_file;
+
 struct		s_file
 {
 	char		*filename;
@@ -57,7 +58,7 @@ struct		s_file
 	char		ftype;
 	char		right[RIGHT_LEN];
 	char		symbolic_link[PATH_MAX];
-	char    	*modification_time;
+	char		*modification_time;
 	struct stat	*info;
 	t_file		*next;
 };
@@ -76,13 +77,14 @@ struct		s_file_head
 	int			print_foldname;
 	int			window_width;
 	int			file_printed;
-	int 		files_number;
+	int			files_number;
 	t_file		*arg_fold;
 	t_file		*work_list;
 };
 
 int			parse_argv_option(int argc, char **argv, char ***files_names);
-int			split_argv_filetype(char **files, int options, t_file **folder_list);
+int			split_argv_filetype(char **files, int options, \
+								t_file **folder_list);
 
 /*
 ** Utils for t_file elements.
@@ -116,7 +118,7 @@ void		print_folder(t_file *folder);
 ** Sorting funcitons
 */
 
-typedef int	(*file_cmp)(t_file *, t_file *);
+typedef int	(*t_file_cmp)(t_file *, t_file *);
 void		insert_sort(t_file **folder, file_cmp cmp_function);
 
 int			modif_compare(t_file *file_1, t_file *file_2);
@@ -125,7 +127,7 @@ int			access_compare(t_file *file_1, t_file *file_2);
 int			creation_compare(t_file *file_1, t_file *file_2);
 int			ascii_compare(t_file *file_1, t_file *file_2);
 int			size_compare(t_file *file_1, t_file *file_2);
-void 		reverse_files(t_file **files);
+void		reverse_files(t_file **files);
 
 /*
 ** t_file printing process
@@ -137,17 +139,15 @@ void		set_maximum_info(t_file_head *head_file);
 int			set_file_link(t_file *file_node, int options);
 int			process_manager(char **file_or_dir, t_file_head *head, int type);
 int			t_file_list_len(t_file *file_list);
-int 		set_file_type(t_file **folder);
+int			set_file_type(t_file **folder);
 
+typedef void	(*t_print_mode)(t_file_head *);
 
-
-typedef void	(*print_mode)(t_file_head *);
-
-void		l_print(t_file_head *);
-void		basic_print(t_file_head *);
-void		one_print(t_file_head *);
-void		o_print(t_file_head *);
-void		m_print(t_file_head *);
+void		l_print(t_file_head *head_file);
+void		basic_print(t_file_head *head_file);
+void		one_print(t_file_head *head_file);
+void		o_print(t_file_head *head_file);
+void		m_print(t_file_head *head_file);
 int			select_print(t_file_head *head, char *folder);
 int			get_window_width(void);
 

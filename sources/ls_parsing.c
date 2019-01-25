@@ -100,7 +100,7 @@ static int		option_fill(char ***argv, char ***files_names, int *index)
 		}
 		else
 		{
-			error *= ((*files_names)[*index] = ft_strdup(**argv)) == NULL ? 0 : 1;
+			error *= (!(*files_names)[*index] = ft_strdup(**argv)) ? 0 : 1;
 			*index += 1;
 		}
 		*argv += 1;

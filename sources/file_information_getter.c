@@ -77,6 +77,7 @@ static void		right_setup(t_file *node, char ftype, char right_0)
 	node->right[7] = (st_mode & S_IROTH) ? 'r' : '-';
 	node->right[8] = (st_mode & S_IWOTH) ? 'w' : '-';
 	node->right[9] = (st_mode & S_IXOTH) ? 'x' : '-';
+	node->right[10] = ' ';
 	extended_permission(node);
 }
 
