@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ls_parsing.c                                     .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: epoggio <epoggio@student.le-101.fr>        +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/20 17:35:41 by epoggio      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 18:50:15 by epoggio     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
 #include "ft_ls.h"
 
 /*
@@ -93,7 +80,7 @@ static short	set_active_multi_opt(short opt, char *opt_name)
 ** Display an error message if an option error occur.
 */
 
-static int		option_fill(char ***argv, char **files_names, int *index)
+static int		option_fill(char ***argv, char ***files_names, int *index)
 {
 	int		invalid_opt;
 	int		active_opt;
@@ -113,13 +100,13 @@ static int		option_fill(char ***argv, char **files_names, int *index)
 		}
 		else
 		{
-			error *= (files_names[*index] = ft_strdup(**argv)) == NULL ? 0 : 1;
+			error *= ((*files_names)[*index] = ft_strdup(**argv)) == NULL ? 0 : 1;
 			*index += 1;
 		}
 		*argv += 1;
 	}
 	*argv += (**argv != NULL && ft_strequ(**argv, "--")) ? 1 : 0;
-	return (error == 0 ? free_str_array(&files_names, -1) : active_opt);
+	return (error == 0 ? free_str_array(files_names, -1) : active_opt);
 }
 
 /*
@@ -147,7 +134,7 @@ int				parse_argv_option(int argc, char **argv,
 	error = 1;
 	if (!(*files_names = create_tab(argc)))
 		return (-1);
-	if ((active_opt = option_fill(&argv, *files_names, &index)) == -1)
+	if ((active_opt = option_fill(&argv, files_names, &index)) == -1)
 		return (-1);
 	while (*argv && error)
 		error *= ((*files_names)[index++] = ft_strdup(*argv++)) == NULL ? 0 : 1;

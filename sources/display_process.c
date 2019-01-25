@@ -20,25 +20,31 @@ static void	clean_process(t_file_head *head_file)
 ** function for each directory.
 */
 
-static void	recursive_folders(t_file_head *head_file)
+static int	recursive_folders(t_file_head *head_file)
 {
 	t_file	*folder_list;
 	t_file	*save_folder;
+	int		error;
 
+	error = 1;
 	folder_list = head_file->work_list;
 	save_folder = head_file->work_list;
 	head_file->work_list = NULL;
 	ft_strdel(&head_file->print_pattern);
 	head_file->print_foldname = 1;
-	while (folder_list)
+	while (folder_list && error)
 	{
 		if (!ft_strequ("..", folder_list->filename) && \
 			!ft_strequ(".", folder_list->filename) &&
 			S_ISDIR(folder_list->info->st_mode))
-			process_manager(&folder_list->path, head_file, FOLDER);
+		{
+			if (process_manager(&folder_list->path, head_file, FOLDER) == -1)
+				error = 0;
+		}
 		folder_list = folder_list->next;
 	}
 	head_file->work_list = save_folder;
+	return (error ? 1 : -1);
 }
 
 /*
@@ -59,7 +65,6 @@ int			show_error(t_file_head *head_file, char *directory, int status)
 	head_file->file_printed++;
 	return (status);
 }
-
 
 /*
 ** process_manager:
@@ -88,18 +93,21 @@ int			process_manager(char **file_or_dir, t_file_head *head_file, \
 	else if (type == FILES)
 		creation = stock_file_list(file_or_dir, &head_file->work_list);
 	if (creation == -1)
-		return (-1);
+		return (free_folder(&head_file->work_list, -1));
 	else if (creation == -2)
 		return (show_error(head_file, *file_or_dir, 0));
 	set_maximum_info(head_file);
 	if (!get_printing_pattern(head_file))
-		return (-1);
+		return (free_folder(&head_file->work_list, -1));
 	if (select_sort(head_file->opts, &head_file->work_list) == -1)
-		return (-1);
+		return (free_folder(&head_file->work_list, -1));
 	if (select_print(head_file, *file_or_dir) == -1)
-		return (-1);
+		return (free_folder(&head_file->work_list, -1));
 	if (head_file->opts & R_MAJ)
-		recursive_folders(head_file);
+	{
+		if (recursive_folders(head_file) == -1)
+			return (free_folder(&head_file->work_list, -1));
+	}
 	clean_process(head_file);
 	return (1);
 }

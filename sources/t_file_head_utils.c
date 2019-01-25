@@ -27,8 +27,9 @@ int				t_file_list_len(t_file *file_list)
 
 void			free_file_head(t_file_head **head_file)
 {
-	free((*head_file)->print_pattern);
+	ft_strdel(&(*head_file)->print_pattern);
 	free_folder(&(*head_file)->arg_fold, 0);
+	free_folder(&(*head_file)->work_list, 0);
 	free(*head_file);
 	*head_file = NULL;
 }

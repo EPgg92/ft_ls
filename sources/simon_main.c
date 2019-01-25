@@ -12,7 +12,7 @@ int		main(int argc, char **argv)
 	t_file_head		*head_file;
 	t_file			*folders;
 
-	if (!(head_file = t_file_head_initialisation()))
+	if (!(head_file = NULL /*t_file_head_initialisation()*/))
 		return (-1);
 	files = NULL;
 	if ((head_file->opts = parse_argv_option(argc, argv, &files)) == -1)

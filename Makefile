@@ -37,10 +37,7 @@ SRCS = ls_parsing.c \
 	   file_information_getter.c \
 	   filename_manipulation.c \
 	   printing_functions_long.c \
-
-ifeq ($(filter $(MAKECMDGOALS), simon enzo),)
-SRCS += main.c
-endif
+	   main.c
 
 OBJS = $(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
 DEPENDENCIES = $(OBJS:.o=.d)
@@ -68,14 +65,6 @@ fclean: clean
 proper:fclean
 	$(foreach Lib, $(LIBRAIRIES), make -C $(Lib) $@ &&) true
 	rm -f $(DEPENDENCIES)
-
-simon enzo: $(LIBS_ARCHIVE_FILES) | get_lib
-enzo: $(OBJS) sources/enzo_main.o
-	$(CC) $(CFLAGS) $(filter-out get_lib, $^) $(LIBS_ARCHIVE_FILES) -o $(NAME)
-
-simon: $(OBJS) sources/simon_main.o
-	$(CC) $(CFLAGS) $(filter-out get_lib, $^) $(LIBS_ARCHIVE_FILES) -o $(NAME)
-
 
 re: fclean all
 

@@ -76,7 +76,7 @@ static int			format_date(int active_opt, t_file *folder)
 ** Loop over each t_file element to format his date.
 */
 
-int				format_all_date(int options, t_file *file_list)
+int					format_all_date(int options, t_file *file_list)
 {
 	while (file_list)
 	{

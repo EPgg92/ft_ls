@@ -143,8 +143,6 @@ int 		set_file_type(t_file **folder);
 
 typedef void	(*print_mode)(t_file_head *);
 
-//void 		print_manager(t_file_head *head_file, print_mode prt_fct, char *folder);
-
 void		l_print(t_file_head *);
 void		basic_print(t_file_head *);
 void		one_print(t_file_head *);

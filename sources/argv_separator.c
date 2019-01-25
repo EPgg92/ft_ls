@@ -40,7 +40,7 @@ static void			delete_string(char **string_list)
 	int		index;
 
 	index = 1;
-	free(*string_list);
+	ft_strdel(string_list);
 	while (string_list[index])
 	{
 		string_list[index - 1] = string_list[index];
