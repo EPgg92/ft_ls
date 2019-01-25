@@ -119,7 +119,7 @@ void		print_folder(t_file *folder);
 */
 
 typedef int	(*t_file_cmp)(t_file *, t_file *);
-void		insert_sort(t_file **folder, file_cmp cmp_function);
+void		insert_sort(t_file **folder, t_file_cmp cmp_function);
 
 int			modif_compare(t_file *file_1, t_file *file_2);
 int			time_compare(t_file *file_1, t_file *file_2);
@@ -141,7 +141,7 @@ int			process_manager(char **file_or_dir, t_file_head *head, int type);
 int			t_file_list_len(t_file *file_list);
 int			set_file_type(t_file **folder);
 
-typedef void	(*t_print_mode)(t_file_head *);
+typedef void	(*t_prt_mode)(t_file_head *);
 
 void		l_print(t_file_head *head_file);
 void		basic_print(t_file_head *head_file);

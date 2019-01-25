@@ -33,7 +33,7 @@ static void		insert_tfile_node(t_file **sorted_folder, t_file *prev, \
 */
 
 static void		place_tfile(t_file **sorted_folder, t_file *new_file, \
-							file_cmp cmp_fct)
+							t_file_cmp cmp_fct)
 {
 	t_file	*current;
 	t_file	*prev;
@@ -73,7 +73,7 @@ static void		place_tfile(t_file **sorted_folder, t_file *new_file, \
 ** element at the right place according to the funciton result.
 */
 
-void			insert_sort(t_file **folder, file_cmp cmp_function)
+void			insert_sort(t_file **folder, t_file_cmp cmp_function)
 {
 	t_file	*sorted_folder;
 	t_file	*tmp;
