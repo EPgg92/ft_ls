@@ -27,8 +27,8 @@ int		modif_compare(t_file *file_1, t_file *file_2)
 
 int		access_compare(t_file *file_1, t_file *file_2)
 {
-	return (file_1->info->st_atimespec.tv_sec - \
-			file_2->info->st_atimespec.tv_sec);
+	return (file_2->info->st_atimespec.tv_sec - \
+			file_1->info->st_atimespec.tv_sec);
 }
 
 /*
@@ -42,8 +42,8 @@ int		access_compare(t_file *file_1, t_file *file_2)
 
 int		creation_compare(t_file *file_1, t_file *file_2)
 {
-	return (file_1->info->st_birthtimespec.tv_sec - \
-			file_2->info->st_birthtimespec.tv_sec);
+	return (file_2->info->st_birthtimespec.tv_sec - \
+			file_1->info->st_birthtimespec.tv_sec);
 }
 
 /*
