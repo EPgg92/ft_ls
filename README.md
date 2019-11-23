@@ -1,12 +1,12 @@
 # ft_ls
 
+*42 Lyon Project*
+
 Implementation of our own ls command in c.
 
 ## implementation step
 
-
-
-## Choice of implementation
+### Choice of implementation
 
 - Do an ls debian like for manage options.
 	- Arguments and options can be shuffle.
@@ -17,15 +17,15 @@ Implementation of our own ls command in c.
 			- display ./dir/dirchild
 				- ft_ls(./dir/dirchild)
 
-## Structure implementation elmt
+### Structure implementation elmt
 
-- char content_or_file (`-F` /)
-	- d : directory (`-F` /)
-	- l : link (`-F` /)
-	- '-' : file (`-F` /)
-	- c : char file (`-F` /)
-	- b : Block file (`-F` /)
-	- p : FIFO (`-F` /)
+- char content_or_file
+	- d : directory
+	- l : link
+	- '-' : file
+	- c : char file
+	- b : Block file
+	- p : FIFO
 - unsigned short right (SGID, SUID, stickybit)
 - unsigned int link_of
 - char* link_to = NULL for d & -
@@ -40,13 +40,13 @@ Implementation of our own ls command in c.
 - char* name
 - char ACL_xattr  **bonus**
 
-## options
+### options
 - `-a` show hidden files
 	- parsing fill with stat list of elmt
 - `-l`
 	- printing
 
-## Sort
+### Sort
 - `-t`
 	- lexicographical[ascii] sort (name)
 	- modification_time sort
@@ -58,13 +58,10 @@ Implementation of our own ls command in c.
 	- octets sort decrease  
 - `-r` reverse
 
-## General Bonus
+### General Bonus
 
 - Column (not just `-l`) calculate on term's height, term's width and length of higher filename.
 - `-1` one file per line
 - `-o` = `-l` without groups
 - `-m` comma separation
 - `-F` print name followed by a special char
-
-
-## comportement ls
